@@ -1,10 +1,10 @@
 <template>
   <v-form @submit.prevent="save" ref="form" v-model="valid">
-    <DuplicateCheck
+    <InputId
       v-model="form.user_id"
-      label="아이디"
+      label="이메일 주소"
       prepend-icon="mdi-account"
-      counter="30"
+      counter="50"
     />
     <InputPassword
       label="비밀번호"
@@ -20,13 +20,6 @@
       label="이름"
       v-model="form.user_name"
       prepend-icon="mdi-card-account-details-outline"
-    />
-    <DuplicateCheck
-      ref="email"
-      v-model="form.user_email"
-      label="이메일"
-      prepend-icon="mdi-email"
-      :cbCheck="cbCheckEmail"
     />
     <InputDate
       v-model="form.user_birth"
@@ -44,14 +37,14 @@
 </template>
 
 <script>
-import DuplicateCheck from '@/components/auth/DuplicateCheck'
+import InputId from '@/components/auth/InputId'
 import InputPassword from '@/components/auth/InputPassword'
 import InputDate from '@/components/auth/InputDate'
 import InputRadio from '@/components/auth/InputRadio'
-import validRules from '@/middleware/validRules'
+
 export default {
   name: 'SignUpForm',
-  components: { DuplicateCheck, InputPassword, InputDate, InputRadio },
+  components: { InputId, InputPassword, InputDate, InputRadio },
   data() {
     return {
       valid: true,
@@ -61,7 +54,6 @@ export default {
         user_name: '',
         user_birth: '',
         user_gender: '',
-        user_email: '',
       },
       confirmPw: '',
       genderItems: [
@@ -69,9 +61,6 @@ export default {
         { label: '여자', value: 'F' },
       ],
     }
-  },
-  computed: {
-    rules: () => validRules,
   },
   methods: {
     async save() {

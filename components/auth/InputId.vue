@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'DuplicateCheck',
+  name: 'InputId',
   model: {
     prop: 'value',
     event: 'input',
