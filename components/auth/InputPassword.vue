@@ -4,6 +4,7 @@
     :value="value"
     @input="onInput"
     :type="type ? 'password' : 'text'"
+    :maxlength="$attrs.counter"
   >
     <template v-slot:append>
       <v-btn icon small tabindex="-1" @click="type = !type">

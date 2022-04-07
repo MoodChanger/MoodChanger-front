@@ -9,7 +9,7 @@
           >
         </v-toolbar>
         <v-card-text>
-          <SignUpForm />
+          <SignUpForm :cbCheckId="checkId" />
         </v-card-text>
       </v-card>
     </div>
@@ -21,6 +21,13 @@ import SignUpForm from '@/components/auth/SignUpForm'
 export default {
   name: 'UserJoin',
   components: { SignUpForm },
+  methods: {
+    checkId(id) {
+      console.log('UserJoin Id', id)
+      // 0 => id사용가능
+      return { cnt: 0 }
+    },
+  },
 }
 </script>
 
