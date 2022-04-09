@@ -2,7 +2,7 @@
   <v-form @submit.prevent="save" ref="form" v-model="valid">
     <InputId
       ref="id"
-      v-model="form.user_id"
+      v-model="form.email"
       label="이메일 주소"
       prepend-icon="mdi-account"
       counter="50"
@@ -11,14 +11,14 @@
     />
     <InputPassword
       label="비밀번호"
-      v-model="form.user_pw"
+      v-model="form.user_pw1"
       prepend-icon="mdi-lock"
       counter="30"
       :rules="validateRules.user_pw_rule"
     />
     <InputPassword
       label="비밀번호 확인"
-      v-model="confirmPw"
+      v-model="form.user_pw2"
       prepend-icon="mdi-lock"
       counter="30"
       :rules="validateRules.user_pw_rule2"
@@ -45,7 +45,7 @@
       row
       prepend-icon="mid-gender-male-female"
     />
-    <v-btn type="submit">회원가입</v-btn>
+    <v-btn type="submit" :loading="isLoading">회원가입</v-btn>
   </v-form>
 </template>
 
@@ -62,13 +62,14 @@ export default {
     return {
       valid: true,
       form: {
-        user_id: '',
-        user_pw: '',
+        email: '',
+        user_pw1: '',
+        user_pw2: '',
         user_name: '',
         user_birth: '',
         user_gender: '',
       },
-      confirmPw: '',
+      // form.user_pw2: '',
       genderItems: [
         { label: '남자', value: 'M' },
         { label: '여자', value: 'F' },
@@ -87,7 +88,7 @@ export default {
         user_pw_rule2: [
           (v) => !!v || '비밀번호는 필수 입력사항입니다.',
 
-          (v) => v === this.form.user_pw || '비밀번호가 일치하지 않습니다.',
+          (v) => v === this.form.user_pw1 || '비밀번호가 일치하지 않습니다.',
         ],
         user_name_rule: [
           (v) => !!v || '이름은 필수 입력사항입니다.',
@@ -103,6 +104,7 @@ export default {
       type: Function,
       default: null,
     },
+    isLoading: Boolean
   },
   methods: {
     async save() {
@@ -111,8 +113,8 @@ export default {
       if (!this.valid) return
       if (!this.$refs.id.validate()) return
 
-      console.log(this.form)
       console.log('validate ', validate)
+      this.$emit('onSave',this.form )
     },
   },
 }
