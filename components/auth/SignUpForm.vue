@@ -6,7 +6,6 @@
       label="이메일 주소"
       prepend-icon="mdi-account"
       counter="50"
-      :cbCheck="cbCheckId"
       :rules="validateRules.user_id_rule"
     />
     <InputPassword
@@ -69,7 +68,6 @@ export default {
         user_birth: '',
         user_gender: '',
       },
-      // form.user_pw2: '',
       genderItems: [
         { label: '남자', value: 'M' },
         { label: '여자', value: 'F' },
@@ -100,21 +98,17 @@ export default {
     }
   },
   props: {
-    cbCheckId: {
-      type: Function,
-      default: null,
-    },
-    isLoading: Boolean
+    isLoading: Boolean,
   },
   methods: {
-    async save() {
-      const validate = this.$refs.form.validate()
-      await this.$nextTick()
-      if (!this.valid) return
-      if (!this.$refs.id.validate()) return
+    save() {
+      // const validate = this.$refs.form.validate()
+      // await this.$nextTick()
+      // if (!this.valid) return
+      // if (!this.$refs.id.validate()) return
+      // console.log('validate ', validate)
 
-      console.log('validate ', validate)
-      this.$emit('onSave',this.form )
+      this.$emit('onSave', this.form)
     },
   },
 }

@@ -1,0 +1,2 @@
+export const VALIDATE_TRUE = 'VALIDATE_TRUE'
+export const VALIDATE_FALSE = 'VALIDATE_FALSE'

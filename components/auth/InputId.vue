@@ -29,67 +29,47 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex'
+
 export default {
   name: 'InputId',
   data() {
     return {
-      isCheck: false,
-      loading: false,
       errMsg: '',
       successMsg: '',
+      checkForm: {
+        email: '',
+      },
     }
   },
   props: {
     value: String,
-    cbCheck: {
-      type: Function,
-      default: null,
-    },
-    origin: {
-      type: String,
-      default: '',
-    },
   },
   model: {
     prop: 'value',
     event: 'input',
   },
   methods: {
+    ...mapActions('modules/user', ['duplicateCheck']),
+    ...mapMutations('modules/user', ['VALIDATE_TRUE', 'VALIDATE_FALSE']),
     onInput(val) {
-      this.isCheck = this.origin ? this.origin === val : !this.cbCheck
       this.errMsg = ''
       this.successMsg = ''
+      this.checkForm.email = val
       this.$emit('input', val)
     },
     async check() {
-      if (!this.isSend) return
+      const checkId = await this.duplicateCheck(this.checkForm)
+      console.log('InputId ', checkId)
 
-      this.loading = true
-      this.errMsg = ''
-      this.successMsg = ''
-      const data = await this.cbCheck(this.value)
-
-      if (data.cnt === 0) {
+      // false : 중복 O, true : 중복 X
+      if (checkId) {
         this.successMsg = `사용가능한 ${this.$attrs.label} 입니다.`
-        this.isCheck = true
+        this.VALIDATE_TRUE()
       } else {
         this.errMsg = `중복된 ${this.$attrs.label} 입니다.`
-        this.isCheck = false
+        this.VALIDATE_FALSE()
       }
-
-      this.loading = false
-    },
-    validate() {
-      if (!this.isCheck) {
-        this.errMsg = `${this.$attrs.label} 중복검사를 해주세요.`
-        this.$refs.field.focus()
-      }
-      return this.isCheck
-    },
-  },
-  computed: {
-    isSend() {
-      return !!this.cbCheck && this.$refs.field.errorBucket.length === 0
     },
   },
 }

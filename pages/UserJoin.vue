@@ -9,11 +9,7 @@
           >
         </v-toolbar>
         <v-card-text>
-          <SignUpForm
-            :cbCheckId="checkId"
-            @onSave="save"
-            :isLoading="isLoading"
-          />
+          <SignUpForm @onSave="save" :isLoading="isLoading" />
         </v-card-text>
       </v-card>
     </div>
@@ -21,6 +17,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import SignUpForm from '@/components/auth/SignUpForm'
 export default {
   name: 'UserJoin',
@@ -31,20 +28,26 @@ export default {
     }
   },
   methods: {
-    checkId(id) {
-      console.log('UserJoin Id', id)
-      // 0 => id사용가능
-      return { cnt: 0 }
-    },
+    ...mapActions('modules/user', ['createUser']),
     async save(form) {
       try {
-        this.isLoading = true
-        await this.$axios.post('http://127.0.0.1:8000/signup/', form)
-        this.isLoading = false
-      } catch(error) {
-        console.log("axios error",error.response)
+        if (this.validateEmail) {
+          this.isLoading = true
+          await this.createUser(form)
+          this.isLoading = false
+          console.log("form", form)
+          this.$router.push('/')
+        } else {
+          // Toast로 바꾸기
+          alert('중복검사 하세요')
+        }
+      } catch (error) {
+        console.log('axios error', error.response)
       }
     },
+  },
+  computed: {
+    ...mapState('modules/user', ['validateEmail']),
   },
 }
 </script>
