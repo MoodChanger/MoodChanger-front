@@ -17,7 +17,12 @@
         ></v-switch>
       </v-card-text>
       <template>
-        <v-card-actions>
+        <v-card-actions class="d-flex flex-column" v-if="isLogin">
+          <!-- <p>{{userName}}님</p> -->
+          <p class="font-weight-bold" block>송상한님</p>
+          <v-btn to="/userlogin" block>로그아웃</v-btn>
+        </v-card-actions>
+        <v-card-actions v-else>
           <v-btn to="/userlogin" block>로그인</v-btn>
         </v-card-actions>
         <v-card-actions>
@@ -35,6 +40,8 @@ export default {
     return {
       isLoading: false,
       cardLodaing: true,
+      isLogin: false,
+      userName: '',
     }
   },
   computed: {
