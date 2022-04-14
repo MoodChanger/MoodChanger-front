@@ -26,11 +26,12 @@ export const actions = {
   },
   async duplicateCheck(context, email) {
     try {
+      // 이메일 empty로 날라오는거 못잡음
       const checkId = await this.$axios.post(
         'http://127.0.0.1:8000/signup/check',
         email
       )
-      return checkId.data
+      return checkId.data // false : 중복 O, true : 중복 X
     } catch (error) {
       console.log(error.response)
     }

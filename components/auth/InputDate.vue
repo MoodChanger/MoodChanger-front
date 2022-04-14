@@ -1,17 +1,21 @@
 <template>
   <v-dialog v-model="modal" persistent max-width="290">
     <template v-slot:activator="{ attrs }">
-      <v-text-field
-        v-bind="{ ...$attrs, ...attrs }"
-        :value="value"
-        @input="onInput"
-      >
-        <template v-slot:append>
-          <v-btn icon small tabindex="-1" @click="open">
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-        </template>
-      </v-text-field>
+      <ValidationProvider name="생년월일" :rules="rules" v-slot="{ errors }">
+        <v-text-field
+          @input="onInput"
+          :value="value"
+          v-bind="{ ...$attrs, ...attrs }"
+          :maxlength="$attrs.counter"
+          :error-messages="errors"
+        >
+          <template v-slot:append>
+            <v-btn icon small tabindex="-1" @click="open">
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+          </template>
+        </v-text-field>
+      </ValidationProvider>
     </template>
     <v-card>
       <v-toolbar>
@@ -32,6 +36,7 @@
 </template>
 
 <script>
+import { ValidationProvider } from 'vee-validate'
 export default {
   name: 'InputDate',
   model: {
@@ -40,6 +45,13 @@ export default {
   },
   props: {
     value: String,
+    rules: {
+      type: [Object, String],
+      default: '',
+    },
+  },
+  components: {
+    ValidationProvider,
   },
   data() {
     return {
