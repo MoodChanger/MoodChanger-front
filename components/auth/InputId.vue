@@ -78,7 +78,7 @@ export default {
         console.log('사용 가능한 아이디')
 
         this.VALIDATE_TRUE()
-
+      } else {
         // :error-messages="errors"에 에러 담거나 Toast로 바꾸기
         alert('중복 아이디 입니다.')
 

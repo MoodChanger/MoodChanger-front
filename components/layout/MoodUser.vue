@@ -17,23 +17,25 @@
         ></v-switch>
       </v-card-text>
       <template>
-        <v-card-actions class="d-flex flex-column" v-if="isLogin">
-          <!-- <p>{{userName}}님</p> -->
-          <p class="font-weight-bold" block>송상한님</p>
-          <v-btn to="/userlogin" block>로그아웃</v-btn>
+        <v-card-actions class="d-flex flex-column" v-if="loggedIn">
+          <p class="font-weight-bold" block>{{ currentUser.user_name }}님</p>
+          <v-btn @click="logoutUser" block>로그아웃</v-btn>
         </v-card-actions>
-        <v-card-actions v-else>
-          <v-btn to="/userlogin" block>로그인</v-btn>
-        </v-card-actions>
-        <v-card-actions>
-          <v-btn to="/userjoin" block>회원가입</v-btn>
-        </v-card-actions>
+        <div v-else>
+          <v-card-actions>
+            <v-btn to="/userlogin" block>로그인</v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn to="/userjoin" block>회원가입</v-btn>
+          </v-card-actions>
+        </div>
       </template>
     </v-card>
   </v-menu>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'MoodUser',
   data() {
@@ -48,11 +50,13 @@ export default {
     darkMode() {
       return this.$vuetify.theme.dark
     },
+    ...mapState('modules/user', ['loggedIn', 'currentUser']),
   },
   mounted() {
     this.getDarkMode()
   },
   methods: {
+    ...mapActions('modules/user', ['logoutUser']),
     setDarkMode(mode) {
       this.$vuetify.theme.dark = mode
       localStorage.setItem('darkMode', mode ? 'dark' : 'light')

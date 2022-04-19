@@ -12,7 +12,7 @@
       <v-card-text>
         <v-tabs-items v-model="tabs">
           <v-tab-item>
-            <SignInForm />
+            <SignInForm @loginHandler="loginUser($event)" />
           </v-tab-item>
           <v-tab-item>
             <FindPwForm />
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import SignInForm from '@/components/auth/SignInForm'
 import FindPwForm from '@/components/auth/FindPwForm'
 
@@ -43,8 +43,15 @@ export default {
     SignInForm,
     FindPwForm,
   },
+  mounted() {
+    console.log('UserLogin', this.currentUser)
+  },
   computed: {
     ...mapState(['state']),
+    ...mapState('modules/user', ['currentUser']),
+  },
+  methods: {
+    ...mapActions('modules/user', ['loginUser']),
   },
 }
 </script>

@@ -8,11 +8,11 @@ extend('required', {
 
 extend('max', {
   ...max,
-  message: 'This field must be {length} characters or less',
+  message: '최대 {length}글자까지 적을 수 있습니다.',
 })
 extend('min', {
   ...min,
-  message: '최소 3글자 이상 적으셔야 합니다.',
+  message: '최소 8글자 이상 적으셔야 합니다.',
 })
 
 extend('email', {

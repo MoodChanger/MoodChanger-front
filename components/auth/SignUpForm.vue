@@ -10,14 +10,14 @@
       />
       <InputPassword
         label="비밀번호"
-        v-model="form.user_pw1"
+        v-model="form.password1"
         counter="30"
         prepend-icon="mdi-lock"
-        rules="required|min:3"
+        rules="required|min:8"
       />
       <InputPassword
         label="비밀번호 확인"
-        v-model="form.user_pw2"
+        v-model="form.password2"
         counter="30"
         prepend-icon="mdi-lock"
         rules="required"
@@ -77,8 +77,8 @@ export default {
       valid: true,
       form: {
         email: '',
-        user_pw1: '',
-        user_pw2: '',
+        password1: '',
+        password2: '',
         user_name: '',
         user_birth: '',
         user_gender: '',
@@ -98,11 +98,6 @@ export default {
   },
   methods: {
     save() {
-      // const validate = this.$refs.form.validate()
-      // await this.$nextTick()
-      // if (!this.valid) return
-      // if (!this.$refs.id.validate()) return
-      // console.log('validate ', validate)
       this.$emit('onSave', this.form)
     },
   },

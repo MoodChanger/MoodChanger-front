@@ -64,7 +64,7 @@ export default {
       this.$emit('input', val)
     },
     open() {
-      const pattern = /^\d{4}-\d{2}-\d{2}$/
+      const pattern = /^\d{4}.\d{2}.\d{2}$/
       this.date = pattern.test(this.value) ? this.value : this.date
       this.modal = true
     },
