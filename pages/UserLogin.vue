@@ -32,23 +32,19 @@ import SignInForm from '@/components/auth/SignInForm'
 import FindPwForm from '@/components/auth/FindPwForm'
 
 export default {
-  name: 'UserJoin',
+  name: 'UserLogin',
+  components: {
+    SignInForm,
+    FindPwForm,
+  },
   data() {
     return {
       tabs: 0,
       items: ['로그인', '비밀번호 찾기'],
     }
   },
-  components: {
-    SignInForm,
-    FindPwForm,
-  },
-  mounted() {
-    console.log('UserLogin', this.currentUser)
-  },
   computed: {
     ...mapState(['state']),
-    ...mapState('modules/user', ['currentUser']),
   },
   methods: {
     ...mapActions('modules/user', ['loginUser']),

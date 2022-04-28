@@ -2,7 +2,7 @@
   <v-progress-circular v-if="isLoading" indeterminate></v-progress-circular>
   <v-menu v-else offset-y>
     <template v-slot:activator="{ on, attrs }">
-      <v-btn icon v-on="on" v-bind="attrs">
+      <v-btn icon v-bind="attrs" v-on="on">
         <v-avatar color="accent" size="32">
           <v-icon>mdi-account</v-icon>
         </v-avatar>
@@ -17,16 +17,28 @@
         ></v-switch>
       </v-card-text>
       <template>
-        <v-card-actions class="d-flex flex-column" v-if="loggedIn">
-          <p class="font-weight-bold" block>{{ currentUser.user_name }}님</p>
-          <v-btn @click="logoutUser" block>로그아웃</v-btn>
-        </v-card-actions>
+        <div v-if="loggedIn">
+          <v-card-actions class="d-flex flex-column">
+            <p class="font-weight-bold" block>{{ currentUser.user_name }}님</p>
+            <v-btn block @click="logoutUser">로그아웃</v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn to="/modifieduserinfo" block>회원정보 수정</v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn to="/removeuser" block>회원 탈퇴</v-btn>
+          </v-card-actions>
+        </div>
+
         <div v-else>
           <v-card-actions>
             <v-btn to="/userlogin" block>로그인</v-btn>
           </v-card-actions>
           <v-card-actions>
             <v-btn to="/userjoin" block>회원가입</v-btn>
+          </v-card-actions>
+          <v-card-actions>
+            <v-btn to="/findpw" block>비밀번호 찾기</v-btn>
           </v-card-actions>
         </div>
       </template>

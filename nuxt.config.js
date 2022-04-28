@@ -21,7 +21,11 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: '~/plugins/vee-validate', ssr: true }],
+  plugins: [
+    { src: '~/plugins/vee-validate', ssr: true },
+    '~/plugins/auth.js', // Navigation Guard로 토큰 체크
+    '~/plugins/axios.js' // axios interceptor
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

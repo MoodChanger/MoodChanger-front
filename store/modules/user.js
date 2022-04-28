@@ -7,6 +7,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
   FETCH_USER,
+  REFRESH_TOKEN,
 } from './mutation-types'
 
 export const state = () => ({
@@ -44,6 +45,10 @@ export const mutations = {
   [FETCH_USER](state, payload) {
     state.currentUser = payload.user
     state.loggedIn = payload.loggedInState
+  },
+  [REFRESH_TOKEN](state, user) {
+    state.currentUser = user
+    state.loggedIn = true
   },
 }
 
@@ -106,5 +111,37 @@ export const actions = {
     localStorage.removeItem('user')
     context.commit(LOGOUT)
     this.$router.push('/')
+  },
+  // access token 만료 후 refresh token으로 access token 재발급 요청
+  async refreshToken(context, refreshToken) {
+    this.$toast.success('referstToek 실행')
+    try {
+      const accrssToken = await this.$axios.post(
+        'http://127.0.0.1:8000/token/refresh',
+        { refresh: refreshToken }
+      )
+      if (accrssToken) {
+        const user = JSON.parse(localStorage.getItem('user'))
+        user.access_token = accrssToken
+        localStorage.setItem('user', JSON.stringify(user))
+        context.commit(REFRESH_TOKEN, user)
+        console.log('accrssToken 재발급 성공 ', accrssToken)
+      }
+    } catch {
+      console.log('accrssToken 재발급 실패 ')
+    }
+  },
+  // access token, refresh token 둘 다 없을 때
+  checkUser(context) {
+    if (process.browser) {
+      const tokenAuth = JSON.parse(localStorage.getItem('user')) || ''
+      if (
+        tokenAuth.access_token === undefined &&
+        tokenAuth.refresh_token === undefined
+      ) {
+        this.$toast.error('로그인 해주세요')
+        this.$router.push('/userlogin')
+      }
+    }
   },
 }
