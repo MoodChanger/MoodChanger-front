@@ -1,4 +1,4 @@
-import { required, email, max, regex, min } from 'vee-validate/dist/rules'
+import { required, email, max, regex, min, confirmed } from 'vee-validate/dist/rules'
 import { extend } from 'vee-validate'
 
 extend('required', {
@@ -22,5 +22,18 @@ extend('email', {
 
 extend('regex', {
   ...regex,
-  message: '{_field_}에 적합하지 않습니다.',
+  message: '비밀번호는 영문,숫자,특수문자의 조합으로 이루어져야 합니다.',
 })
+extend('confirmed', {
+  ...confirmed,
+  message: '비밀번호가 일치하지 않습니다.',
+})
+
+extend('password', {
+  params: ['target'],
+  validate(value, { target }) {
+    return value === target;
+  },
+  message: '비밀번호가 일치하지 않습니다.'
+});
+

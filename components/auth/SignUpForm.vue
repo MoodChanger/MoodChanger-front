@@ -1,35 +1,38 @@
 <template>
   <ValidationObserver>
-    <v-form @submit.prevent="save" ref="form" v-model="valid">
+    <v-form ref="form" v-model="valid" @submit.prevent="save">
       <InputId
-        label="이메일 주소"
         v-model="form.email"
+        label="이메일 주소"
         :counter="30"
         prepend-icon="mdi-account"
         rules="required|email"
       />
+
       <InputPassword
-        label="비밀번호"
         v-model="form.password1"
+        label="비밀번호"
         counter="30"
+        name="비밀번호"
         prepend-icon="mdi-lock"
-        rules="required|min:8"
+        :rules="{
+          required: true,
+          min: 8,
+          regex: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/,
+        }"
       />
       <InputPassword
-        label="비밀번호 확인"
         v-model="form.password2"
+        label="비밀번호"
         counter="30"
+        name="비밀번호 확인"
         prepend-icon="mdi-lock"
-        rules="required"
+        rules="required|password:@비밀번호"
       />
-      <ValidationProvider
-        :rules="{ required: true, regex: /[^~!@#$%^&*()_+|<>?:{}]/ }"
-        name="이름"
-        v-slot="{ errors }"
-      >
+      <ValidationProvider v-slot="{ errors }" rules="required" name="이름">
         <v-text-field
-          label="이름"
           v-model="form.user_name"
+          label="이름"
           counter="10"
           :maxlength="10"
           prepend-icon="mdi-card-account-details-outline"
@@ -38,8 +41,8 @@
       </ValidationProvider>
 
       <InputDate
-        label="생년월일"
         v-model="form.user_birth"
+        label="생년월일"
         counter="10"
         prepend-icon="mdi-calendar"
         :rules="{ required: true, regex: /^\d{4}-\d{2}-\d{2}$/ }"
@@ -57,7 +60,7 @@
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate'
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import InputId from '@/components/auth/InputId'
 import InputPassword from '@/components/auth/InputPassword'
 import InputDate from '@/components/auth/InputDate'
@@ -71,6 +74,14 @@ export default {
     InputDate,
     InputRadio,
     ValidationProvider,
+    ValidationObserver,
+  },
+  props: {
+    isLoading: Boolean,
+    rules: {
+      type: [Object, String],
+      default: '',
+    },
   },
   data() {
     return {
@@ -88,13 +99,6 @@ export default {
         { label: '여자', value: 'F' },
       ],
     }
-  },
-  props: {
-    isLoading: Boolean,
-    rules: {
-      type: [Object, String],
-      default: '',
-    },
   },
   methods: {
     save() {

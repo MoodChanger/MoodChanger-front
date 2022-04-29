@@ -67,6 +67,8 @@ export const actions = {
     try {
       const data = await this.$axios.post('http://127.0.0.1:8000/signup/', form)
       context.commit(REGISTER_SUCCESS)
+      const loginData = { email: form.email, password: form.password1 }
+      await context.dispatch('loginUser', loginData)
       return data
     } catch (error) {
       console.log(error.response)

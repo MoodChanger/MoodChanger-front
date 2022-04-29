@@ -1,5 +1,5 @@
 <template>
-  <ValidationProvider name="비밀번호" :rules="rules" v-slot="{ errors }">
+  <ValidationProvider :name="$attrs.name" :rules="rules" v-slot="{ errors }">
     <v-text-field
       @input="onInput"
       :value="value"
@@ -34,10 +34,6 @@ export default {
     rules: {
       type: [Object, String],
       default: '',
-    },
-    vid: {
-      type: String,
-      default: undefined,
     },
   },
   data() {

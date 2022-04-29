@@ -1,19 +1,17 @@
 <template>
-  <v-app>
-    <div class="d-flex justify-center align-center" style="height: 100%">
-      <v-card max-width="400" width="100%" elevation="10">
-        <v-toolbar>
-          <v-toolbar-title>회원가입</v-toolbar-title>
-          <v-toolbark-item class="font-weight-light"
-            >(ID는 이메일 형식으로 입력해주세요)</v-toolbark-item
-          >
-        </v-toolbar>
-        <v-card-text>
-          <SignUpForm @onSave="save" :isLoading="isLoading" />
-        </v-card-text>
-      </v-card>
-    </div>
-  </v-app>
+  <div class="d-flex justify-center align-center" style="height: 100%">
+    <v-card max-width="400" width="100%" elevation="10">
+      <v-toolbar>
+        <v-toolbar-title>회원가입</v-toolbar-title>
+        <v-toolbar-title class="font-weight-light text-subtitle-1"
+          >(ID는 이메일 형식으로 입력해주세요)</v-toolbar-title
+        >
+      </v-toolbar>
+      <v-card-text>
+        <SignUpForm :isLoading="isLoading" @onSave="save" />
+      </v-card-text>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -27,6 +25,9 @@ export default {
       isLoading: false,
     }
   },
+  computed: {
+    ...mapState('modules/user', ['validateEmail']),
+  },
   methods: {
     ...mapActions('modules/user', ['createUser']),
     async save(form) {
@@ -35,7 +36,7 @@ export default {
           this.isLoading = true
           await this.createUser(form)
           this.isLoading = false
-          console.log("form", form)
+          console.log('form', form)
           this.$router.push('/')
         } else {
           // Toast로 바꾸기
@@ -45,9 +46,6 @@ export default {
         console.log('axios error', error.response)
       }
     },
-  },
-  computed: {
-    ...mapState('modules/user', ['validateEmail']),
   },
 }
 </script>
