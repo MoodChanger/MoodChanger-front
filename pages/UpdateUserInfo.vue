@@ -12,44 +12,38 @@
       <v-card-text>
         <v-tabs-items v-model="tabs">
           <v-tab-item>
-            <SignInForm @loginHandler="loginUser($event)" />
+            <ModifyUserInfo />
           </v-tab-item>
           <v-tab-item>
-            <FindPwForm />
+            <RemoveUser />
           </v-tab-item>
         </v-tabs-items>
-      </v-card-text>
-      <v-card-text>
-        <v-btn to="/userjoin" block>회원가입</v-btn>
       </v-card-text>
     </v-card>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import SignInForm from '@/components/auth/SignInForm'
-import FindPwForm from '@/components/auth/FindPwForm'
+import { mapState } from 'vuex'
+import ModifyUserInfo from '@/components/auth/ModifyUserInfo'
+import RemoveUser from '@/components/auth/RemoveUser'
 
 export default {
-  name: 'UserLogin',
+  name: 'ModifiedUserInfo',
   components: {
-    SignInForm,
-    FindPwForm,
+    ModifyUserInfo,
+    RemoveUser,
   },
   data() {
     return {
       tabs: 0,
-      items: ['로그인', '비밀번호 찾기'],
+      items: ['회원정보 수정', '회원 탈퇴'],
     }
   },
   computed: {
     ...mapState({
       title: (state) => state.state.title,
     }),
-  },
-  methods: {
-    ...mapActions('modules/user', ['loginUser']),
   },
 }
 </script>

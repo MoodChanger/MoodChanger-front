@@ -23,10 +23,7 @@
             <v-btn block @click="logoutUser">로그아웃</v-btn>
           </v-card-actions>
           <v-card-actions>
-            <v-btn to="/modifieduserinfo" block>회원정보 수정</v-btn>
-          </v-card-actions>
-          <v-card-actions>
-            <v-btn to="/removeuser" block>회원 탈퇴</v-btn>
+            <v-btn to="/UpdateUserInfo" block>회원정보 수정</v-btn>
           </v-card-actions>
         </div>
 
@@ -36,9 +33,6 @@
           </v-card-actions>
           <v-card-actions>
             <v-btn to="/userjoin" block>회원가입</v-btn>
-          </v-card-actions>
-          <v-card-actions>
-            <v-btn to="/findpw" block>비밀번호 찾기</v-btn>
           </v-card-actions>
         </div>
       </template>
