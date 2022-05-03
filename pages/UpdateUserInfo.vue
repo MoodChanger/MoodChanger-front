@@ -12,10 +12,10 @@
       <v-card-text>
         <v-tabs-items v-model="tabs">
           <v-tab-item>
-            <ModifyUserInfo />
+            <ModifyUserInfo @updateUser="updateUser($event)" />
           </v-tab-item>
           <v-tab-item>
-            <RemoveUser />
+            <RemoveUser @removeUser="removeUser($event)" />
           </v-tab-item>
         </v-tabs-items>
       </v-card-text>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import ModifyUserInfo from '@/components/auth/ModifyUserInfo'
 import RemoveUser from '@/components/auth/RemoveUser'
 
@@ -44,6 +44,10 @@ export default {
     ...mapState({
       title: (state) => state.state.title,
     }),
+  },
+  methods: {
+    ...mapActions('modules/user', ['updateUser']),
+    ...mapActions('modules/user', ['removeUser']),
   },
 }
 </script>

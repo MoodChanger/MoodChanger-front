@@ -8,6 +8,7 @@ import {
   REGISTER_FAILURE,
   FETCH_USER,
   REFRESH_TOKEN,
+  UPDATE_USER,
 } from './mutation-types'
 
 export const state = () => ({
@@ -49,6 +50,10 @@ export const mutations = {
   [REFRESH_TOKEN](state, user) {
     state.currentUser = user
     state.loggedIn = true
+  },
+
+  [UPDATE_USER](state, user) {
+    state.currentUser = user
   },
 }
 
@@ -113,6 +118,42 @@ export const actions = {
     localStorage.removeItem('user')
     context.commit(LOGOUT)
     this.$router.push('/')
+  },
+  async updateUser(context, form) {
+    try {
+      await this.$axios.put('url', form)
+
+      // 로컬스토리지 업데이트
+      const userData = JSON.parse(localStorage.getItem('user'))
+      userData.user.user_name = form.user_name
+      localStorage.setItem('user', JSON.stringify(userData))
+
+      context.commit(UPDATE_USER, userData)
+      this.$toast.success('수정이 완료되었습니다.')
+      this.$router.push('/')
+    } catch (error) {
+      console.log('error', error.response)
+
+      this.$toast.error('수정을 다시해주세요.')
+      this.$router.push('/UpdateUserInfo')
+    }
+  },
+  async removeUser(context, form) {
+    try {
+      // 비밀번호 인증(form.password1)
+      const removeUser = await this.$axios.post('url', form)
+
+      if (removeUser) {
+        await this.$axios.delete('url', '삭제할 데이터')
+        context.dispatch('logoutUser')
+        this.$toast.success('회원정보가 삭제되었습니다.')
+      } else {
+        this.$toast.error('비밀번호가 틀렸습니다.')
+      }
+    } catch (error) {
+      console.log('error', error.response)
+      this.$toast.error('서버에 에러가 있습니다.')
+    }
   },
   // access token 만료 후 refresh token으로 access token 재발급 요청
   async refreshToken(context, refreshToken) {

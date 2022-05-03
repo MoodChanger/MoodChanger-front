@@ -31,7 +31,9 @@
           :error-messages="errors"
         />
       </ValidationProvider>
-      <v-btn class="mt-4" color="primary" block>회원정보 수정</v-btn>
+      <v-btn class="mt-4" color="primary" block @click="updateUser"
+        >회원정보 수정</v-btn
+      >
     </v-form>
   </ValidationObserver>
 </template>
@@ -55,6 +57,11 @@ export default {
         user_name: '',
       },
     }
+  },
+  methods: {
+    updateUser() {
+      this.$emit('updateUser', this.form)
+    },
   },
 }
 </script>
