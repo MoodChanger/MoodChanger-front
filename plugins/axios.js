@@ -2,32 +2,19 @@
 export default function ({ $axios }) {
   // request
   $axios.onRequest((config) => {
-    try {
-      if (process.browser) {
-        const userInfo = localStorage.getItem('user') || ''
-        if (userInfo.access_token) {
-          config.timeout = 10000
-          config.headers['x-access-token'] = userInfo.access_token
-          config.headers['x-refresh-token'] = userInfo.refresh_token
-          config.headers['Content-Type'] = 'application/json'
-        }
-        return config
-      }
-    } catch (error) {
-      console.log('config onrequest 에러 ', error)
-      return error
-    }
+    console.log('onRequest', config)
+  })
+  $axios.onRequestError((error) => {
+    console.log('onRequestError', error)
   })
 
   // response
   $axios.onResponse((response) => {
-    try {
-      console.log('onResponse 성공 ', response)
-      return response
-    } catch (error) {
-      console.log('onResponse 에러 ', error)
-      return error.message
-    }
+    console.log('onResponse', response)
+  })
+
+  $axios.onResponseError((error) => {
+    console.log('onResponseError', error)
   })
 
   // axios 에러

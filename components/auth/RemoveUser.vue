@@ -1,32 +1,14 @@
 <template>
-  <v-form>
-    <InputPassword
-      v-model="form.password1"
-      label="비밀번호를 인증해주세요"
-      prepend-icon="mdi-lock"
-    />
-    <v-btn color="primary" block @click="leave">회원 탈퇴</v-btn>
-  </v-form>
+  <v-btn color="primary" block @click="removeUser">회원 탈퇴</v-btn>
 </template>
 
 <script>
-import InputPassword from '@/components/auth/InputPassword'
+import { mapActions } from 'vuex'
 export default {
   name: 'RemoveUser',
-  components: {
-    InputPassword,
-  },
-  data() {
-    return {
-      form: {
-        password1: '',
-      },
-    }
-  },
+  components: {},
   methods: {
-    leave() {
-      this.$emit('removeUser', this.form)
-    },
+    ...mapActions('modules/user', ['removeUser']),
   },
 }
 </script>

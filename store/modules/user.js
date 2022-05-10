@@ -138,20 +138,17 @@ export const actions = {
       this.$router.push('/UpdateUserInfo')
     }
   },
-  async removeUser(context, form) {
+  async removeUser(context) {
     try {
-      // 비밀번호 인증(form.password1)
-      const removeUser = await this.$axios.post('url', form)
+      const user = JSON.parse(localStorage.getItem('user'))
+      const accessToken = user.access_token
 
-      if (removeUser) {
-        await this.$axios.delete('url', '삭제할 데이터')
-        context.dispatch('logoutUser')
-        this.$toast.success('회원정보가 삭제되었습니다.')
-      } else {
-        this.$toast.error('비밀번호가 틀렸습니다.')
-      }
+      this.$axios.setToken(accessToken, 'Bearer', ['delete'])
+      await this.$axios.$delete('http://127.0.0.1:8000/user/byebye')
+      context.commit(LOGOUT)
+      this.$router.push('/')
     } catch (error) {
-      console.log('error', error.response)
+      console.log('error', error)
       this.$toast.error('서버에 에러가 있습니다.')
     }
   },
