@@ -12,7 +12,10 @@
       <v-card-text>
         <v-tabs-items v-model="tabs">
           <v-tab-item>
-            <ModifyUserInfo @updateUser="updateUser($event)" />
+            <ModifyUserInfo
+              @updateUserPw="updateUserPw($event)"
+              @updateUserName="updateUserName($event)"
+            />
           </v-tab-item>
           <v-tab-item>
             <RemoveUser @removeUser="removeUser($event)" />
@@ -46,7 +49,8 @@ export default {
     }),
   },
   methods: {
-    ...mapActions('modules/user', ['updateUser']),
+    ...mapActions('modules/user', ['updateUserPw']),
+    ...mapActions('modules/user', ['updateUserName']),
     ...mapActions('modules/user', ['removeUser']),
   },
 }

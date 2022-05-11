@@ -36,7 +36,6 @@ export const mutations = {
     state.loggedIn = false
     state.currentUser = null
   },
-  // 나중에 회원가입하는 순간 로그인되게 하기
   [REGISTER_SUCCESS](state) {
     state.loggedIn = false
   },
@@ -51,7 +50,6 @@ export const mutations = {
     state.currentUser = user
     state.loggedIn = true
   },
-
   [UPDATE_USER](state, user) {
     state.currentUser = user
   },
@@ -119,18 +117,47 @@ export const actions = {
     context.commit(LOGOUT)
     this.$router.push('/')
   },
-  async updateUser(context, form) {
+  async updateUserPw(context, form) {
     try {
-      await this.$axios.put('url', form)
+      const user = JSON.parse(localStorage.getItem('user'))
+      const accessToken = user.access_token
+      this.$axios.setToken(accessToken, 'Bearer', ['post'])
 
-      // 로컬스토리지 업데이트
-      const userData = JSON.parse(localStorage.getItem('user'))
-      userData.user.user_name = form.user_name
-      localStorage.setItem('user', JSON.stringify(userData))
+      const updatePW = await this.$axios.$post(
+        'http://127.0.0.1:8000/password/change/',
+        form
+      )
+      if (updatePW) {
+        context.commit(UPDATE_USER)
+        this.$toast.success('비밀번호를 수정했습니다.')
+        this.$router.push('/')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  async updateUserName(context, form) {
+    try {
+      console.log('username', form)
+      const user = JSON.parse(localStorage.getItem('user'))
+      const accessToken = user.access_token
+      this.$axios.setToken(accessToken, 'Bearer', ['put'])
 
-      context.commit(UPDATE_USER, userData)
-      this.$toast.success('수정이 완료되었습니다.')
-      this.$router.push('/')
+      const update = await this.$axios.$put(
+        'http://127.0.0.1:8000/user/edit',
+        form
+      )
+
+      if (update) {
+        // 로컬스토리지 업데이트
+        const userData = JSON.parse(localStorage.getItem('user'))
+        userData.user.user_name = form.user_name
+        localStorage.setItem('user', JSON.stringify(userData))
+
+        context.commit(UPDATE_USER, userData)
+        this.$toast.success(`${update.user_name}님 수정이 완료되었습니다.`)
+        this.$router.push('/')
+      }
     } catch (error) {
       console.log('error', error.response)
 
