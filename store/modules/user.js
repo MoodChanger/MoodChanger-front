@@ -55,7 +55,11 @@ export const mutations = {
   },
 }
 
-export const getters = {}
+export const getters = {
+  getLoggedIn(state) {
+    return state.loggedIn
+  },
+}
 
 export const actions = {
   fetchUser(context) {
