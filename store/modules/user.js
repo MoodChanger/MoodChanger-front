@@ -10,7 +10,6 @@ import {
   REFRESH_TOKEN,
   UPDATE_USER,
 } from './mutation-types'
-
 export const state = () => ({
   currentUser: {},
   loggedIn: false,
@@ -184,34 +183,30 @@ export const actions = {
     }
   },
   // access token 만료 후 refresh token으로 access token 재발급 요청
-  async refreshToken(context, refreshToken) {
-    this.$toast.success('referstToek 실행')
-    try {
-      const accrssToken = await this.$axios.post(
-        'http://127.0.0.1:8000/token/refresh',
-        { refresh: refreshToken }
-      )
-      if (accrssToken) {
-        const user = JSON.parse(localStorage.getItem('user'))
-        user.access_token = accrssToken
-        localStorage.setItem('user', JSON.stringify(user))
-        context.commit(REFRESH_TOKEN, user)
-        console.log('accrssToken 재발급 성공 ', accrssToken)
-      }
-    } catch {
-      console.log('accrssToken 재발급 실패 ')
-    }
-  },
-  // access token, refresh token 둘 다 없을 때
-  checkUser(context) {
+  async refreshToken(context) {
     if (process.browser) {
-      const tokenAuth = JSON.parse(localStorage.getItem('user')) || ''
-      if (
-        tokenAuth.access_token === undefined &&
-        tokenAuth.refresh_token === undefined
-      ) {
-        this.$toast.error('로그인 해주세요')
-        this.$router.push('/userlogin')
+      const user = JSON.parse(localStorage.getItem('user')) || ''
+      const refreshToken = user.refresh_token
+      if (user) {
+        try {
+          const newUser = await this.$axios.post(
+            'http://127.0.0.1:8000/token/refresh/',
+            {
+              refresh: refreshToken,
+            }
+          )
+          // At x, Rt o
+          user.access_token = newUser.data.access
+          localStorage.setItem('user', JSON.stringify(user))
+          context.commit(REFRESH_TOKEN, user)
+          alert('Access Toekn 재발급')
+        } catch {
+          // At x , Rt x
+          context.commit(LOGOUT)
+          localStorage.removeItem('user')
+          alert('Refresh Token 만료, 로그아웃')
+          this.$router.push('/')
+        }
       }
     }
   },

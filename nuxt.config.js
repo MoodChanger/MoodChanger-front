@@ -20,12 +20,10 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
+  mode: 'universal',
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-    { src: '~/plugins/vee-validate', ssr: true },
-    '~/plugins/auth.js', // Navigation Guard로 토큰 체크
-    '~/plugins/axios.js' // axios interceptor
-  ],
+  plugins: [{ src: '~/plugins/vee-validate', ssr: true }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -37,7 +35,19 @@ export default {
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
   ],
-
+  router: {
+    middleware: 'checkAuth',
+  },
+  // axios: {
+  //   retry: {
+  //     retries: 4, // 최대 재전송 횟수 4회
+  //     shouldResetTimeout: true, // 재전송 간 타임아웃을 리셋하기
+  //     retryDelay: (retry) => {
+  //       return retry * 100; // 재전송 횟수 * 0.1초만큼 재전송 시작 시간을 지연시키기
+  //     },
+  //     retryCondition: (error) => error.response.status === 401, // 서버 혼잡이 일어났을 경우에만 재전송하기
+  //   },
+  // },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios', '@nuxtjs/toast'],
   toast: {
