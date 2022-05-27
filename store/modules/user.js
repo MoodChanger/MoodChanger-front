@@ -210,4 +210,27 @@ export const actions = {
       }
     }
   },
+  async resetPw(context, userEmail) {
+    try {
+      await this.$axios.post('http://127.0.0.1:8000/password/reset/', {
+        email: userEmail,
+      })
+      alert('이메일을 확인해주세요')
+      this.$router.push('/')
+    } catch (error) {
+      console.log(error.response)
+    }
+  },
+  async changePassword(context, form) {
+    try {
+      await this.$axios.post(
+        'http://127.0.0.1:8000/password/reset/confirm/',
+        form
+      )
+      alert('비밀번호가 변경되었습니다.')
+      this.$router.push('/UserLogin')
+    } catch (error) {
+      console.log(error.response)
+    }
+  },
 }

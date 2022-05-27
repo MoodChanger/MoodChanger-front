@@ -15,7 +15,7 @@
             <SignInForm @loginHandler="loginUser($event)" />
           </v-tab-item>
           <v-tab-item>
-            <FindPwForm />
+            <FindPwForm @resetPw="resetPw($event)" />
           </v-tab-item>
         </v-tabs-items>
       </v-card-text>
@@ -50,6 +50,7 @@ export default {
   },
   methods: {
     ...mapActions('modules/user', ['loginUser']),
+    ...mapActions('modules/user', ['resetPw']),
   },
 }
 </script>
