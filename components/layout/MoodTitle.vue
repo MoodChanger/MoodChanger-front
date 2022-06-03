@@ -1,8 +1,8 @@
 <template>
   <v-app-bar white hide-on-scroll>
-    <v-btn to="/" text text-h6>{{ title }}</v-btn>
+    <v-btn to="/" text color="#43A047">{{ title }}</v-btn>
     <v-spacer></v-spacer>
-    <MoodUser/>
+    <MoodUser />
   </v-app-bar>
 </template>
 
