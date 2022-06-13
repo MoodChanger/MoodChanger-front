@@ -1,5 +1,8 @@
 <template>
-  <v-container style="height: 100%" class="d-flex justify-center align-center">
+  <v-container
+    style="height: 92%"
+    class="d-flex justify-center align-center pa-0"
+  >
     <v-row style="height: 60%">
       <v-col v-for="(card, index) in cards" :key="index" cols="12" sm="4">
         <!-- <v-hover v-slot="{ hover }"> -->
@@ -20,8 +23,7 @@
             max-height="280px"
             width="100%"
             class="mt-3"
-          >
-          </v-img>
+          />
           <v-card-actions>
             <v-btn
               :to="{ path: card.path }"

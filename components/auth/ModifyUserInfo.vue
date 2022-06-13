@@ -28,9 +28,14 @@
         counter="30"
         prepend-icon="mdi-lock"
       />
-      <v-btn class="mt-4" color="primary" block @click="updateUserPw"
-        >비밀번호 수정</v-btn
-      >
+      <div class="text-center mt-3">
+        <v-btn
+          color="green lighten-1"
+          style="width: 200px"
+          @click="updateUserPw"
+          >비밀번호 수정</v-btn
+        >
+      </div>
     </v-form>
     <v-form>
       <ValidationProvider v-slot="{ errors }" rules="required" name="이름">
@@ -43,9 +48,14 @@
           :error-messages="errors"
         />
       </ValidationProvider>
-      <v-btn class="mt-4" color="primary" block @click="updateUserName"
-        >닉네임 수정</v-btn
-      >
+      <div class="text-center mt-3">
+        <v-btn
+          color="green lighten-1"
+          style="width: 200px"
+          @click="updateUserName"
+          >닉네임 수정</v-btn
+        >
+      </div>
     </v-form>
   </ValidationObserver>
 </template>

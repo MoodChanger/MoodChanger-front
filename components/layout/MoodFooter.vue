@@ -1,5 +1,5 @@
 <template>
-  <v-footer white absolute
+  <v-footer white absolute style="height: 5%"
     >&copy; {{ new Date().getFullYear() }} {{ footer }}
   </v-footer>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar white hide-on-scroll>
+  <v-app-bar white hide-on-scroll style="height: 5%">
     <v-btn to="/" text color="#43A047">{{ title }}</v-btn>
     <v-spacer></v-spacer>
     <MoodUser />

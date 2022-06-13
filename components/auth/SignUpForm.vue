@@ -54,7 +54,15 @@
         row
         prepend-icon="mid-gender-male-female"
       />
-      <v-btn type="submit" :loading="isLoading">회원가입</v-btn>
+      <div class="text-center mt-3">
+        <v-btn
+          color="green lighten-1"
+          style="width: 100px"
+          type="submit"
+          :loading="isLoading"
+          >회원가입</v-btn
+        >
+      </div>
     </v-form>
   </ValidationObserver>
 </template>

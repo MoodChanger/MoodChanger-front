@@ -7,7 +7,11 @@
       prepend-icon="mdi-email"
       type="text"
     />
-    <v-btn color="primary" @click="resetPw" block>비밀번호 찾기</v-btn>
+    <div class="text-center mt-3">
+      <v-btn color="green lighten-1" style="width: 200px" @click="resetPw"
+        >비밀번호 찾기</v-btn
+      >
+    </div>
   </v-form>
 </template>
 
