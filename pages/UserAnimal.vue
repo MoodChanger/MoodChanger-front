@@ -10,21 +10,30 @@
         <v-container>
           <v-row>
             <v-col v-for="i in 6" :key="i" cols="12" md="4">
-              <v-hover v-slot="{ hover }">
-                <v-img
-                  :src="`https://picsum.photos/500/300?image=${i * n * 5 + 10}`"
-                  :lazy-src="`https://picsum.photos/10/6?image=${
-                    i * n * 5 + 10
-                  }`"
-                  aspect-ratio="1"
+              <!-- <v-hover v-slot="{ hover }"> -->
+              <v-img
+                :src="`https://picsum.photos/500/300?image=${i * n * 5 + 10}`"
+                :lazy-src="`https://picsum.photos/10/6?image=${i * n * 5 + 10}`"
+                aspect-ratio="1"
+              >
+                <v-btn
+                  class="ml-2 mt-2"
+                  @click="saveImg"
+                  fab
+                  small
+                  color="white"
                 >
-                  <v-fade-transition>
+                  <!-- <v-icon v-if="heartColor"  color="red">mdi-heart</v-icon> -->
+                  <v-icon>mdi-heart-outline</v-icon>
+                </v-btn>
+
+                <!-- <v-fade-transition>
                     <v-overlay v-if="hover" absolute color="grey">
                       <v-btn @click="saveImg">SAVE</v-btn>
                     </v-overlay>
-                  </v-fade-transition>
-                </v-img>
-              </v-hover>
+                  </v-fade-transition> -->
+              </v-img>
+              <!-- </v-hover> -->
             </v-col>
           </v-row>
         </v-container>
@@ -37,6 +46,11 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'UserAnimal',
+  data() {
+    return {
+      heartColor: false,
+    }
+  },
   computed: {
     ...mapGetters('modules/user', ['getLoggedIn']),
   },
@@ -48,13 +62,14 @@ export default {
         this.$router.push('/userlogin')
       }
     },
-    saveImg() {
-      if (!this.getLoggedIn) {
-        alert('로그인 후 이용 가능합니다')
-      } else {
-        // 이미지 id저장 후 SAVE 탭에서 보여주기
-        // 회원 정보랑 같이 id저장
-      }
+    saveImg(event) {
+      // if (!this.getLoggedIn) {
+      //   alert('로그인 후 이용 가능합니다')
+      // } else {
+      // 이미지 id저장 후 SAVE 탭에서 보여주기
+      // 회원 정보랑 같이 id저장
+      // 하트 아이콘 빨간색으로 바꾸기
+      // }
     },
   },
 }
