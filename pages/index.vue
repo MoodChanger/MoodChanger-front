@@ -1,22 +1,18 @@
 <template>
-	<v-container
-		style="height: 92%"
-		class="d-flex justify-center align-center pa-0"
-	>
-		<v-row style="height: 60%">
-			<v-col v-for="(card, index) in cards" :key="index" cols="12" sm="4">
-				<!-- <v-hover v-slot="{ hover }"> -->
+	<v-main>
+		<!-- <v-container
+			grid-list-xs
+			class="d-flex justify-space-around align-center set-background-image"
+			style="height: 100%"
+			fluid
+		>
+			<div v-for="(card, index) in cards" :key="index">
 				<v-card
 					max-width="300px"
 					max-height="410px"
 					height="100%"
 					class="d-flex justify-center align-center flex-column"
 				>
-					<!-- <v-fade-transition>
-              <v-overlay v-if="hover" absolute color="green" @click="movePage">
-                <span style="width: 100% height: 100%">{{card.title}}</span>
-              </v-overlay>
-            </v-fade-transition> -->
 					<v-img
 						:src="card.imgSrc"
 						max-width="240px"
@@ -25,34 +21,33 @@
 						class="mt-3"
 					/>
 					<v-card-actions>
-						<v-btn
-							:to="{ path: card.path }"
-							class="pa-10 pl-16 pr-16 mt-3 mb-3"
-							>{{ card.title }}</v-btn
-						>
+						<NuxtLink :to="{ path: card.path }">
+							<v-btn class="pa-10 pl-16 pr-16 mt-3 mb-3" color="primary">{{
+								card.title
+							}}</v-btn>
+						</NuxtLink>
 					</v-card-actions>
 				</v-card>
-				<!-- </v-hover> -->
-			</v-col>
-		</v-row>
-	</v-container>
+			</div>
+		</v-container> -->
+	</v-main>
 </template>
 
 <script>
-import animalImg from '@/assets/images/animal.jpg';
-import dancelImg from '@/assets/images/dance.jpg';
-import feelinglImg from '@/assets/images/feeling.jpg';
+// import animalImg from '@/assets/images/animal.jpg';
+// import feelinglImg from '@/assets/images/feeling.jpg';
 
 export default {
 	name: 'IndexPage',
 	data() {
 		return {
-			cards: [
-				{ title: 'Animal', path: '/useranimal', imgSrc: animalImg },
-				{ title: 'Feeling', path: '/userfeeling', imgSrc: feelinglImg },
-				{ title: 'Dance', path: '/userdance', imgSrc: dancelImg },
-			],
+			// cards: [
+			// 	{ title: 'Animal', path: '/useranimal', imgSrc: animalImg },
+			// 	{ title: 'Feeling', path: '/userfeeling', imgSrc: feelinglImg },
+			// ],
 		};
 	},
 };
 </script>
+
+<style></style>

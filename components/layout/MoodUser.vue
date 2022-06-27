@@ -1,6 +1,5 @@
 <template>
-	<v-progress-circular v-if="isLoading" indeterminate></v-progress-circular>
-	<v-menu v-else offset-y>
+	<v-menu offset-y>
 		<template #activator="{ on, attrs }">
 			<v-btn icon v-bind="attrs" v-on="on">
 				<v-avatar color="accent" size="32">
@@ -16,47 +15,53 @@
 					@change="setDarkMode($event)"
 				></v-switch>
 			</v-card-text>
-			<template>
-				<div v-if="loggedIn">
-					<v-card-actions class="d-flex flex-column">
-						<p class="font-weight-bold" block>{{ currentUser.user_name }}님</p>
-						<v-btn block @click="logoutUser">로그아웃</v-btn>
-					</v-card-actions>
-					<v-card-actions>
-						<v-btn to="/UpdateUserInfo" block>회원정보 수정</v-btn>
-					</v-card-actions>
-				</div>
 
-				<div v-else>
-					<v-card-actions>
-						<v-btn to="/userlogin" block>로그인</v-btn>
-					</v-card-actions>
-					<v-card-actions>
-						<v-btn to="/userjoin" block>회원가입</v-btn>
-					</v-card-actions>
-				</div>
-			</template>
+			<!-- 로그인 했을 때 -->
+			<div v-if="getLoggedIn">
+				<v-card-actions class="d-flex flex-column">
+					<p class="font-weight-bold" block>{{ getUserName.user_name }}님</p>
+					<v-btn block @click="logoutUser">로그아웃</v-btn>
+				</v-card-actions>
+				<v-card-actions>
+					<NuxtLink class="nuxt-link-style" to="/UpdateUserInfo">
+						<v-btn block>회원정보 수정</v-btn>
+					</NuxtLink>
+				</v-card-actions>
+			</div>
+
+			<!-- 로그인 안 했을 때  -->
+			<div v-else>
+				<v-card-actions>
+					<NuxtLink class="nuxt-link-style" to="/UserLogin">
+						<v-btn block>로그인</v-btn>
+					</NuxtLink>
+				</v-card-actions>
+				<v-card-actions>
+					<NuxtLink class="nuxt-link-style" to="/UserJoin">
+						<v-btn block>회원가입</v-btn>
+					</NuxtLink>
+				</v-card-actions>
+			</div>
 		</v-card>
 	</v-menu>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
 	name: 'MoodUser',
 	data() {
 		return {
 			isLoading: false,
-			cardLodaing: true,
-			isLogin: false,
-			userName: '',
 		};
 	},
 	computed: {
 		darkMode() {
+			// v-switch 색 표시
 			return this.$vuetify.theme.dark;
 		},
-		...mapState('modules/user', ['loggedIn', 'currentUser']),
+		...mapGetters('modules/user', ['getLoggedIn', 'getUserName']),
+		// ...mapState('modules/user', ['loggedIn', 'currentUser']),
 	},
 	mounted() {
 		this.getDarkMode();
@@ -64,6 +69,7 @@ export default {
 	methods: {
 		...mapActions('modules/user', ['logoutUser']),
 		setDarkMode(mode) {
+			console.log(mode);
 			this.$vuetify.theme.dark = mode;
 			localStorage.setItem('darkMode', mode ? 'dark' : 'light');
 		},
@@ -71,11 +77,13 @@ export default {
 			const mode = localStorage.getItem('darkMode') === 'dark';
 			this.$vuetify.theme.dark = mode;
 		},
-		showCard() {
-			this.cardLodaing = true;
-		},
 	},
 };
 </script>
 
-<style></style>
+<style>
+.nuxt-link-style {
+	text-decoration: none;
+	width: 100%;
+}
+</style>

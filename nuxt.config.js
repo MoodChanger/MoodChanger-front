@@ -54,7 +54,7 @@ export default {
 				dark: {
 					primary: colors.green.darken1, // title색
 					secondary: colors.green.lighten1, // 버튼색
-					accent: colors.grey.darken3,
+					accent: colors.grey.darken3, // MoodUser
 					info: colors.teal.lighten1,
 					warning: colors.amber.base,
 					error: colors.deepOrange.accent4,
@@ -63,7 +63,7 @@ export default {
 				light: {
 					primary: colors.green.darken1, // title색
 					secondary: colors.green.lighten1, // 버튼색
-					accent: colors.grey.darken3,
+					accent: colors.grey.lighten4,
 					info: colors.teal.lighten1,
 					warning: colors.amber.base,
 					error: colors.deepOrange.accent4,
