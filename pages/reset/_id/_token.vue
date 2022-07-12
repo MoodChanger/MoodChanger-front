@@ -13,7 +13,7 @@
 										MoodChanger
 									</h1>
 									<ValidationObserver>
-										<v-form>
+										<v-form @submit.prevent="resetPassword">
 											<InputPassword
 												v-model="form.new_password1"
 												label="새로운 비밀번호"
@@ -39,7 +39,7 @@
 												<v-btn
 													class="secondary"
 													style="width: 200px"
-													@click="changePassword(form)"
+													type="submit"
 													>비밀번호 변경</v-btn
 												>
 											</div>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import { ValidationObserver } from 'vee-validate';
 import InputPassword from '@/components/auth/InputPassword';
 
@@ -82,14 +82,11 @@ export default {
 			},
 		};
 	},
-
-	computed: {
-		...mapState({
-			title: state => state.state.title,
-		}),
-	},
 	methods: {
-		...mapActions('modules/user', ['changePassword']),
+		...mapActions(['RESET_PASSWORD']),
+		async resetPassword(form) {
+			await this.RESET_PASSWORD(form);
+		},
 	},
 };
 </script>

@@ -18,7 +18,8 @@ export default {
 		await this.fetchUser();
 	},
 	methods: {
-		...mapActions('modules/user', ['fetchUser']),
+		// asyncData로 생각해보기
+		...mapActions(['fetchUser']),
 	},
 };
 </script>

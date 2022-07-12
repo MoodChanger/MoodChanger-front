@@ -33,7 +33,7 @@
                       </h4> -->
 											<SignInForm
 												@clickStep="step++"
-												@loginHandler="loginUser($event)"
+												@loginHandler="LOGIN_USER($event)"
 											/>
 										</v-card-text>
 									</v-col>
@@ -80,7 +80,7 @@
 											>
 												MoodChanger
 											</h1>
-											<FindPwForm @resetPw="resetPw($event)" />
+											<FindPwForm @resetPw="sendEmaiForPassword($event)" />
 										</v-card-text>
 									</v-col>
 								</v-row>
@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import SignInForm from '@/components/auth/SignInForm';
 import FindPwForm from '@/components/auth/FindPwForm';
 
@@ -110,14 +110,12 @@ export default {
 			items: ['로그인', '비밀번호 찾기'],
 		};
 	},
-	computed: {
-		...mapState({
-			title: state => state.state.title,
-		}),
-	},
 	methods: {
-		...mapActions('modules/user', ['loginUser']),
-		...mapActions('modules/user', ['resetPw']),
+		...mapActions(['LOGIN_USER', 'SEND_EMAIL_RESET_PASSWORD']),
+		async sendEmaiForPassword(email) {
+			console.log(email, 'eamil');
+			await this.SEND_EMAIL_RESET_PASSWORD(email);
+		},
 	},
 };
 </script>

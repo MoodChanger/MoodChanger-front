@@ -1,6 +1,7 @@
 export const VALIDATE_TRUE = 'VALIDATE_TRUE';
 export const VALIDATE_FALSE = 'VALIDATE_FALSE';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const SET_USER = 'SET_USER';
+export const SET_TOKEN = 'SET_TOKEN';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';

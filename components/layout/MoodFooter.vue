@@ -8,7 +8,7 @@ export default {
 	name: 'MoodFooter',
 	computed: {
 		...mapState({
-			footer: state => state.state.footer,
+			footer: state => state.footer,
 		}),
 	},
 };

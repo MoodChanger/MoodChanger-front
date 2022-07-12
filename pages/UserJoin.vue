@@ -62,15 +62,15 @@ export default {
 		};
 	},
 	computed: {
-		...mapState('modules/user', ['validateEmail']),
+		...mapState(['validateEmail']),
 	},
 	methods: {
-		...mapActions('modules/user', ['createUser']),
+		...mapActions(['CREATE_USER']),
 		async save(form) {
 			try {
 				if (this.validateEmail) {
 					this.isLoading = true;
-					await this.createUser(form);
+					await this.CREATE_USER(form);
 					this.isLoading = false;
 					console.log('form', form);
 					this.$router.push('/');

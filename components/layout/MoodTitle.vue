@@ -55,7 +55,7 @@ export default {
 	},
 	computed: {
 		...mapState({
-			title: state => state.state.title,
+			title: state => state.title,
 		}),
 	},
 };

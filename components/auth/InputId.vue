@@ -59,8 +59,8 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions('modules/user', ['duplicateCheck']),
-		...mapMutations('modules/user', ['VALIDATE_TRUE', 'VALIDATE_FALSE']),
+		...mapActions(['DUPLICATE_CHECK']),
+		...mapMutations(['VALIDATE_TRUE', 'VALIDATE_FALSE']),
 		onInput(val) {
 			this.errMsg = '';
 			this.successMsg = '';
@@ -68,7 +68,7 @@ export default {
 			this.$emit('input', val);
 		},
 		async check() {
-			const checkId = await this.duplicateCheck(this.checkForm);
+			const checkId = await this.DUPLICATE_CHECK(this.checkForm);
 			console.log('InputId ', checkId);
 
 			// false : 중복 O, true : 중복 X

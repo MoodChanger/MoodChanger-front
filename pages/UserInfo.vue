@@ -9,7 +9,7 @@ import { mapState } from 'vuex';
 export default {
 	name: 'UserInfo',
 	computed: {
-		...mapState('modules/user', ['currentUser', 'loggedIn']),
+		...mapState(['currentUser', 'loggedIn']),
 	},
 	mounted() {
 		if (!this.currentUser) {

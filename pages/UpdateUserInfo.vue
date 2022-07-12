@@ -28,8 +28,8 @@
 												MoodChanger
 											</h1>
 											<ModifyUserInfo
-												@updateUserPw="updateUserPw($event)"
-												@updateUserName="updateUserName($event)"
+												@updateUserPw="UPDATE_USER_PASSWORD($event)"
+												@updateUserName="UPDATE_USER_NAME($event)"
 											/>
 										</v-card-text>
 									</v-col>
@@ -45,7 +45,7 @@
 											>
 												MoodChanger
 											</h1>
-											<RemoveUser @removeUser="removeUser($event)" />
+											<RemoveUser />
 										</v-card-text>
 									</v-col>
 
@@ -85,7 +85,7 @@
         <v-tabs-items v-model="tabs">
           <v-tab-item>
             <ModifyUserInfo
-              @updateUserPw="updateUserPw($event)"
+              @UPDATE_USER_PASSWORD="UPDATE_USER_PASSWORD($event)"
               @updateUserName="updateUserName($event)"
             />
           </v-tab-item>
@@ -121,9 +121,7 @@ export default {
 		}),
 	},
 	methods: {
-		...mapActions('modules/user', ['updateUserPw']),
-		...mapActions('modules/user', ['updateUserName']),
-		...mapActions('modules/user', ['removeUser']),
+		...mapActions(['UPDATE_USER_PASSWORD', 'UPDATE_USER_NAME']),
 	},
 };
 </script>

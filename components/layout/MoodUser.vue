@@ -20,7 +20,7 @@
 			<div v-if="getLoggedIn">
 				<v-card-actions class="d-flex flex-column">
 					<p class="font-weight-bold" block>{{ getUserName.user_name }}님</p>
-					<v-btn block @click="logoutUser">로그아웃</v-btn>
+					<v-btn block @click="LOGOUT_USER">로그아웃</v-btn>
 				</v-card-actions>
 				<v-card-actions>
 					<NuxtLink class="nuxt-link-style" to="/UpdateUserInfo">
@@ -60,14 +60,14 @@ export default {
 			// v-switch 색 표시
 			return this.$vuetify.theme.dark;
 		},
-		...mapGetters('modules/user', ['getLoggedIn', 'getUserName']),
+		...mapGetters(['getLoggedIn', 'getUserName']),
 		// ...mapState('modules/user', ['loggedIn', 'currentUser']),
 	},
 	mounted() {
 		this.getDarkMode();
 	},
 	methods: {
-		...mapActions('modules/user', ['logoutUser']),
+		...mapActions(['LOGOUT_USER']),
 		setDarkMode(mode) {
 			console.log(mode);
 			this.$vuetify.theme.dark = mode;

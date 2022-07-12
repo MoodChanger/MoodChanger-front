@@ -3,14 +3,10 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 export default {
 	name: 'UserFeeling',
 	created() {
-		this.checkUser();
-	},
-	methods: {
-		...mapActions('modules/user', ['checkUser']),
+		// 로그인 체크하고 로그인 안되어 있으면 리다이렉트로 메인으로 보내기
 	},
 };
 </script>

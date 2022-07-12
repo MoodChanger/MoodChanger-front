@@ -20,6 +20,11 @@ export default {
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: [],
 
+	// env
+	env: {
+		API_URL: 'http://127.0.0.1:8000/',
+	},
+
 	mode: 'universal',
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
