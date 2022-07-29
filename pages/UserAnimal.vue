@@ -1,58 +1,38 @@
 <template>
 	<v-card>
-		<v-tabs color="green darken-2" right>
-			<v-tab>HOME</v-tab>
-			<v-tab>DOG</v-tab>
-			<v-tab>CAT</v-tab>
+		<v-tabs v-model="tab" primary right>
+			<v-tab v-for="item in items" :key="item">
+				{{ item }}
+			</v-tab>
 			<v-tab @click="checkLogin">SAVE</v-tab>
-
-			<v-tab-item v-for="n in 4" :key="n">
-				<v-container>
-					<v-row>
-						<v-col v-for="i in 6" :key="i" cols="12" md="4">
-							<!-- <v-hover v-slot="{ hover }"> -->
-							<v-img
-								:src="`https://picsum.photos/500/300?image=${i * n * 5 + 10}`"
-								:lazy-src="`https://picsum.photos/10/6?image=${i * n * 5 + 10}`"
-								aspect-ratio="1"
-							>
-								<v-btn
-									class="ml-2 mt-2"
-									fab
-									small
-									color="white"
-									@click="saveImg"
-								>
-									<!-- <v-icon v-if="heartColor"  color="red">mdi-heart</v-icon> -->
-									<v-icon>mdi-heart-outline</v-icon>
-								</v-btn>
-
-								<!-- <v-fade-transition>
-                    <v-overlay v-if="hover" absolute color="grey">
-                      <v-btn @click="saveImg">SAVE</v-btn>
-                    </v-overlay>
-                  </v-fade-transition> -->
-							</v-img>
-							<!-- </v-hover> -->
-						</v-col>
-					</v-row>
-				</v-container>
-			</v-tab-item>
 		</v-tabs>
+		<InfiniteScrollForCat v-if="tab === 0" />
+		<InfiniteScrollForDog v-else-if="tab === 1" />
 	</v-card>
 </template>
-
 <script>
 import { mapGetters } from 'vuex';
+import InfiniteScrollForCat from '@/components/InfiniteScrollForCat';
+import InfiniteScrollForDog from '@/components/InfiniteScrollForDog';
 export default {
 	name: 'UserAnimal',
+	components: {
+		InfiniteScrollForCat,
+		InfiniteScrollForDog,
+	},
 	data() {
 		return {
+			tab: null,
+			items: ['CAT', 'DOG'],
 			heartColor: false,
 		};
 	},
+
 	computed: {
 		...mapGetters(['getLoggedIn']),
+	},
+	updated() {
+		console.log(this.tab);
 	},
 	methods: {
 		checkLogin() {

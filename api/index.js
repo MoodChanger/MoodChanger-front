@@ -41,6 +41,14 @@ function sendEmailForResetPassword(userEmail) {
 function resetPasswordFromEmail(form) {
 	return axiosUserService.post('password/reset/confirm/', form);
 }
+// 고양이 사진 API
+function cat() {
+	return axiosUserService.get('cat/');
+}
+// 강아지 사진 API
+function dog() {
+	return axiosUserService.get('dog/');
+}
 
 function createAxiosServiceWithAuth() {
 	const axiosService = axios.create({
@@ -74,6 +82,8 @@ export {
 	deleteUser,
 	sendEmailForResetPassword,
 	resetPasswordFromEmail,
+	cat,
+	dog,
 };
 
 /*
@@ -95,8 +105,8 @@ interceptor 필요 o API
 사용자 정보 확인 API : user/
 
 -----아직 확인 안한 api-----
-고양이 사진 가져오기 API : cat/
-개 사진 가져오기 API : dog/
+고양이 사진 가져오기 API : cat/ : ok
+개 사진 가져오기 API : dog/ : ok
 좋아요 등록 API : likes/
 좋아요 목록 (pk: email) API : likes/<str:pk>
 좋아요 취소 : likes/<inst:pk>/cancel

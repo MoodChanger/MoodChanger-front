@@ -22,6 +22,8 @@ import {
 	REMOVE_USER,
 	SEND_EMAIL_RESET_PASSWORD,
 	RESET_PASSWORD,
+	CAT_INFINITY,
+	DOG_INFINITY,
 } from '@/store/modules/actions-types';
 import {
 	registerUser,
@@ -34,6 +36,8 @@ import {
 	deleteUser,
 	sendEmailForResetPassword,
 	resetPasswordFromEmail,
+	cat,
+	dog,
 } from '@/api/index';
 
 export const state = () => ({
@@ -265,5 +269,33 @@ export const actions = {
 		} else {
 			// redirect으로 main으로 보내기
 		}
+	},
+	// 고양이 사진
+	async [CAT_INFINITY](context, page) {
+		const response = await cat();
+		const items = [];
+		for (let i = page; i < page + 9; i++) {
+			const addOverlayData = {
+				...response.data[i],
+				overlay: false,
+				like: false,
+			};
+			items.push(addOverlayData);
+		}
+		return items;
+	},
+	// 강아지 사진
+	async [DOG_INFINITY](context, page) {
+		const response = await dog();
+		const items = [];
+		for (let i = page; i < page + 9; i++) {
+			const addOverlayData = {
+				...response.data[i],
+				overlay: false,
+				like: false,
+			};
+			items.push(addOverlayData);
+		}
+		return items;
 	},
 };
