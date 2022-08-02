@@ -28,17 +28,12 @@
 									color="#036358"
 									:value="item.overlay"
 								>
-									<v-icon v-if="!item.like" @click="clickHeart(item)"
+									<v-icon v-if="!item.like" @click="clickHeartForCat(item)"
 										>mdi-cards-heart-outline</v-icon
 									>
-									<v-icon v-else @click="deleteLikeImage">트루</v-icon>
-									<!-- 
-										클릭하면
-										 로그인 o일 때 -> 빨간색 하트로 변경 
-										 		빨간색 하트 한번 더 누르면 다시 빈 하트로 이동
-										 로그인 x일 때 -> 로그인 해주세요 toast보내고 로그인 창으로 이동
-
-									 -->
+									<v-icon v-else @click="deleteLikeImageForCat(item)"
+										>좋아요 취소</v-icon
+									>
 								</v-overlay>
 							</v-fade-transition>
 						</v-img>
@@ -64,7 +59,12 @@
 									color="#036358"
 									:value="item.overlay"
 								>
-									<v-btn>See more info</v-btn>
+									<v-icon v-if="!item.like" @click="clickHeartForCat(item)"
+										>mdi-cards-heart-outline</v-icon
+									>
+									<v-icon v-else @click="deleteLikeImageForCat(item)"
+										>좋아요 취소</v-icon
+									>
 								</v-overlay>
 							</v-fade-transition>
 						</v-img>
@@ -90,7 +90,12 @@
 									color="#036358"
 									:value="item.overlay"
 								>
-									<v-btn>See more info</v-btn>
+									<v-icon v-if="!item.like" @click="clickHeartForCat(item)"
+										>mdi-cards-heart-outline</v-icon
+									>
+									<v-icon v-else @click="deleteLikeImageForCat(item)"
+										>좋아요 취소</v-icon
+									>
 								</v-overlay>
 							</v-fade-transition>
 						</v-img>
@@ -103,7 +108,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import ObserverInfinite from '@/components/ObserverInfinite';
 export default {
 	name: 'InfiniteScroll',
@@ -124,8 +129,11 @@ export default {
 			items3: [], // 사진 id 3,6,9 ~~
 		};
 	},
+	computed: {
+		...mapGetters(['getLoggedIn']),
+	},
 	methods: {
-		...mapActions(['CAT_INFINITY']),
+		...mapActions(['CAT_INFINITY', 'ADD_LIKE_IMAGES', 'REMOVE_LIKE_IMAGES']),
 		async intersected() {
 			const response = await this.CAT_INFINITY(this.page);
 			this.page = this.page + 9;
@@ -159,8 +167,28 @@ export default {
 				}
 			});
 		},
-		clickHeart(item) {},
-		deleteLikeImage() {},
+		async clickHeartForCat(item) {
+			if (!this.getLoggedIn) {
+				alert('로그인 후 이용 가능합니다');
+				this.$router.push('/userlogin');
+			} else if (!item.like) {
+				const data = JSON.parse(window.localStorage.getItem('user'));
+				const form = {
+					url: item.url,
+					user_email: data.user.email,
+				};
+				await this.ADD_LIKE_IMAGES(form);
+				item.like = true;
+			}
+		},
+		async deleteLikeImageForCat(item) {
+			try {
+				await this.REMOVE_LIKE_IMAGES(item.id);
+				item.like = false;
+			} catch (error) {
+				console.log(error.response);
+			}
+		},
 	},
 };
 </script>

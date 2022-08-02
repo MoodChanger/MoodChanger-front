@@ -21,7 +21,12 @@
 									color="#036358"
 									:value="item.overlay"
 								>
-									<v-btn>See more info</v-btn>
+									<v-icon v-if="!item.like" @click="clickHeartForDog(item)"
+										>mdi-cards-heart-outline</v-icon
+									>
+									<v-icon v-else @click="deleteLikeImageForDog(item)"
+										>좋아요 취소</v-icon
+									>
 								</v-overlay>
 							</v-fade-transition>
 						</v-img>
@@ -47,7 +52,12 @@
 									color="#036358"
 									:value="item.overlay"
 								>
-									<v-btn>See more info</v-btn>
+									<v-icon v-if="!item.like" @click="clickHeartForDog(item)"
+										>mdi-cards-heart-outline</v-icon
+									>
+									<v-icon v-else @click="deleteLikeImageForDog(item)"
+										>좋아요 취소</v-icon
+									>
 								</v-overlay>
 							</v-fade-transition>
 						</v-img>
@@ -73,7 +83,12 @@
 									color="#036358"
 									:value="item.overlay"
 								>
-									<v-btn>See more info</v-btn>
+									<v-icon v-if="!item.like" @click="clickHeartForDog(item)"
+										>mdi-cards-heart-outline</v-icon
+									>
+									<v-icon v-else @click="deleteLikeImageForDog(item)"
+										>좋아요 취소</v-icon
+									>
 								</v-overlay>
 							</v-fade-transition>
 						</v-img>
@@ -86,7 +101,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import ObserverInfinite from '@/components/ObserverInfinite';
 export default {
 	name: 'InfiniteScroll',
@@ -109,8 +124,11 @@ export default {
 			indexCol: [0, 1, 2],
 		};
 	},
+	computed: {
+		...mapGetters(['getLoggedIn']),
+	},
 	methods: {
-		...mapActions(['DOG_INFINITY']),
+		...mapActions(['DOG_INFINITY', 'ADD_LIKE_IMAGES', 'REMOVE_LIKE_IMAGES']),
 		async intersected() {
 			const response = await this.DOG_INFINITY(this.page);
 			this.page = this.page + 9;
@@ -144,8 +162,28 @@ export default {
 				}
 			});
 		},
-		clickHeart(item) {},
-		deleteLikeImage() {},
+		async clickHeartForDog(item) {
+			if (!this.getLoggedIn) {
+				alert('로그인 후 이용 가능합니다');
+				this.$router.push('/userlogin');
+			} else if (!item.like) {
+				const data = JSON.parse(window.localStorage.getItem('user'));
+				const form = {
+					url: item.url,
+					user_email: data.user.email,
+				};
+				await this.ADD_LIKE_IMAGES(form);
+				item.like = true;
+			}
+		},
+		async deleteLikeImageForDog(item) {
+			try {
+				await this.REMOVE_LIKE_IMAGES(item.id);
+				item.like = false;
+			} catch (error) {
+				console.log(error.response);
+			}
+		},
 	},
 };
 </script>

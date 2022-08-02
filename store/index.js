@@ -24,6 +24,9 @@ import {
 	RESET_PASSWORD,
 	CAT_INFINITY,
 	DOG_INFINITY,
+	ADD_LIKE_IMAGES,
+	REMOVE_LIKE_IMAGES,
+	FETCH_LIKE_IMAGES,
 } from '@/store/modules/actions-types';
 import {
 	registerUser,
@@ -38,6 +41,9 @@ import {
 	resetPasswordFromEmail,
 	cat,
 	dog,
+	addLikeImage,
+	deleteLikeImage,
+	getLikeImage,
 } from '@/api/index';
 
 export const state = () => ({
@@ -297,5 +303,33 @@ export const actions = {
 			items.push(addOverlayData);
 		}
 		return items;
+	},
+	// 좋아요 누르기
+	async [ADD_LIKE_IMAGES](context, form) {
+		try {
+			await addLikeImage(form);
+			alert('저장되었습니다.');
+		} catch (error) {
+			console.log(error.response);
+		}
+	},
+	// 좋아요 취소
+	async [REMOVE_LIKE_IMAGES](context, id) {
+		try {
+			const response = await deleteLikeImage(id);
+			console.log(response, ' here is delete like images');
+			alert('취소되었습니다.');
+		} catch (error) {
+			console.log(error.response);
+		}
+	},
+	// 좋아요 누른 사진 받아오기
+	async [FETCH_LIKE_IMAGES](context, email) {
+		try {
+			const response = await getLikeImage(email);
+			return response.data;
+		} catch (error) {
+			console.log(error.response);
+		}
 	},
 };

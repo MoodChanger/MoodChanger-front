@@ -71,6 +71,18 @@ function updateUserName(form) {
 function deleteUser() {
 	return axiosServiceWithAuth.delete('user/byebye');
 }
+// 좋아요 등록 API
+function addLikeImage(form) {
+	return axiosServiceWithAuth.post('likes/', form);
+}
+// 좋아요 취소 API
+function deleteLikeImage(id) {
+	return axiosServiceWithAuth.delete(`likes/${id}/cancel`);
+}
+// 좋아요 목록 API
+function getLikeImage(form) {
+	return axiosServiceWithAuth.get(`likes/${form}`);
+}
 export {
 	registerUser,
 	duplicateCheck,
@@ -84,6 +96,9 @@ export {
 	resetPasswordFromEmail,
 	cat,
 	dog,
+	addLikeImage,
+	deleteLikeImage,
+	getLikeImage,
 };
 
 /*
@@ -107,7 +122,7 @@ interceptor 필요 o API
 -----아직 확인 안한 api-----
 고양이 사진 가져오기 API : cat/ : ok
 개 사진 가져오기 API : dog/ : ok
-좋아요 등록 API : likes/
-좋아요 목록 (pk: email) API : likes/<str:pk>
-좋아요 취소 : likes/<inst:pk>/cancel
+좋아요 등록 API : likes/ : ok
+좋아요 목록 (pk: email) API : likes/<str:pk> : ok
+좋아요 취소 : likes/<inst:pk>/cancel : no
 */
