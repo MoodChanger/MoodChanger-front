@@ -27,6 +27,11 @@ import {
 	ADD_LIKE_IMAGES,
 	REMOVE_LIKE_IMAGES,
 	FETCH_LIKE_IMAGES,
+	CREATE_DIARY,
+	FETCH_DIARY,
+	GET_MY_DIARY,
+	UPDATE_DIARY,
+	REMOVE_DIARY,
 } from '@/store/modules/actions-types';
 import {
 	registerUser,
@@ -44,6 +49,11 @@ import {
 	addLikeImage,
 	deleteLikeImage,
 	getLikeImage,
+	addDiary,
+	getDiary,
+	getSpecificDiary,
+	updateDiary,
+	deleteDiary,
 } from '@/api/index';
 
 export const state = () => ({
@@ -66,6 +76,9 @@ export const getters = {
 	},
 	getUserAccessToken(state) {
 		return state.token.accessToken;
+	},
+	getDiaryLists(state) {
+		return state.diaryLists;
 	},
 };
 
@@ -328,6 +341,52 @@ export const actions = {
 		try {
 			const response = await getLikeImage(email);
 			return response.data;
+		} catch (error) {
+			console.log(error.response);
+		}
+	},
+	// 일기장 등록
+	async [CREATE_DIARY](context, form) {
+		try {
+			await addDiary(form);
+			alert('게시글 완성');
+			this.$router.push('/userfeeling');
+		} catch (error) {
+			console.log(error.response);
+		}
+	},
+	// 일기장 목록 받아오기
+	async [FETCH_DIARY](context) {
+		try {
+			const response = await getDiary();
+			return response;
+		} catch (error) {
+			console.log(error.response);
+		}
+	},
+	// 특정 일기장 받아오기
+	async [GET_MY_DIARY](context, id) {
+		try {
+			const response = await getSpecificDiary(id);
+			return response;
+		} catch (error) {
+			console.log(error.response);
+		}
+	},
+	// 특정 일기장 수정
+	async [UPDATE_DIARY](context, form) {
+		try {
+			await updateDiary(form);
+		} catch (error) {
+			console.log(error.response);
+		}
+	},
+	// 특정 일기장 삭제
+	async [REMOVE_DIARY](context, id) {
+		try {
+			await deleteDiary(id);
+			alert('삭제하였습니다');
+			this.$router.push('/userfeeling');
 		} catch (error) {
 			console.log(error.response);
 		}

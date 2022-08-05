@@ -83,6 +83,31 @@ function deleteLikeImage(id) {
 function getLikeImage(form) {
 	return axiosServiceWithAuth.get(`likes/${form}`);
 }
+// 일기장 추가
+function addDiary(form) {
+	return axiosServiceWithAuth.post('posts/', form);
+}
+// 일기장 받아오기
+function getDiary() {
+	return axiosServiceWithAuth.get('posts/');
+}
+// 특정 일기장 보기
+function getSpecificDiary(id) {
+	return axiosServiceWithAuth.get(`posts/${id}/`);
+}
+// 일기장 수정
+function updateDiary(form) {
+	const submitForm = {
+		title: form.title,
+		content: form.content,
+	};
+	return axiosServiceWithAuth.put(`posts/${form.id}/edit`, submitForm);
+}
+// 일기장 삭제
+function deleteDiary(id) {
+	return axiosServiceWithAuth.delete(`posts/${id}/delete`);
+}
+
 export {
 	registerUser,
 	duplicateCheck,
@@ -99,6 +124,11 @@ export {
 	addLikeImage,
 	deleteLikeImage,
 	getLikeImage,
+	addDiary,
+	getDiary,
+	getSpecificDiary,
+	updateDiary,
+	deleteDiary,
 };
 
 /*
