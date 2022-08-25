@@ -7,10 +7,10 @@
 						<v-row>
 							<v-col cols="12" md="4" class="secondary">
 								<v-card-text class="white--text">
-									프랑시스 북간도에 별에도 이름을 많은 묻힌 그리고 패,
-									까닭입니다. 어머님, 이름과, 아름다운 겨울이 별 언덕 한 다
-									사람들의 거외다. 이웃 자랑처럼 아무 사람들의 있습니다. 이 것은
-									한 그리고 아직 까닭입니다.
+									너무 애쓰지 않았으면 해. 이미 일어나 버린 일들과 일어나지 않은
+									것들에 대한 걱정과 어쩔 수 없었던 선택과 그로 인한 결과들에
+									생각만으로 해결되지 않는 고민들과 답이 되어 돌아오지 않는
+									질문들과 이해할 수 없는 모든 문제들에 대해
 								</v-card-text>
 								<div class="text-center">
 									<v-btn outlined style="width: 100px" to="/UserLogin"
@@ -34,20 +34,6 @@
 			</v-row>
 		</v-container>
 	</v-content>
-
-	<!-- <div class="d-flex justify-center align-center" style="height: 100%">
-    <v-card max-width="400" width="100%" elevation="10">
-      <v-toolbar>
-        <v-toolbar-title>회원가입</v-toolbar-title>
-        <v-toolbar-title class="font-weight-light text-subtitle-1"
-          >(ID는 이메일 형식으로 입력해주세요)</v-toolbar-title
-        >
-      </v-toolbar>
-      <v-card-text>
-        <SignUpForm :isLoading="isLoading" @onSave="save" />
-      </v-card-text>
-    </v-card>
-  </div> -->
 </template>
 
 <script>
@@ -75,8 +61,7 @@ export default {
 					console.log('form', form);
 					this.$router.push('/');
 				} else {
-					// Toast로 바꾸기
-					alert('중복검사 하세요');
+					this.$toast.show('중복검사 하세요');
 				}
 			} catch (error) {
 				console.log('axios error', error.response);

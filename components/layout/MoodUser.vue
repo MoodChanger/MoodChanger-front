@@ -57,11 +57,9 @@ export default {
 	},
 	computed: {
 		darkMode() {
-			// v-switch 색 표시
 			return this.$vuetify.theme.dark;
 		},
 		...mapGetters(['getLoggedIn', 'getUserName']),
-		// ...mapState('modules/user', ['loggedIn', 'currentUser']),
 	},
 	mounted() {
 		this.getDarkMode();

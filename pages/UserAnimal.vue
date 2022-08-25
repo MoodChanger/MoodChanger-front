@@ -13,9 +13,9 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import InfiniteScrollForCat from '@/components/InfiniteScrollForCat';
-import InfiniteScrollForDog from '@/components/InfiniteScrollForDog';
-import LikeImages from '@/components/LikeImages';
+import InfiniteScrollForCat from '@/components/animal/InfiniteScrollForCat';
+import InfiniteScrollForDog from '@/components/animal/InfiniteScrollForDog';
+import LikeImages from '@/components/animal/LikeImages';
 export default {
 	name: 'UserAnimal',
 	components: {

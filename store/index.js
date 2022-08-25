@@ -140,6 +140,7 @@ export const actions = {
 			context.commit(REGISTER_SUCCESS);
 			const loginData = { email: form.email, password: form.password1 };
 			await context.dispatch('loginUser', loginData);
+			this.$toast.success('회원가입 성공');
 			return response;
 		} catch (error) {
 			console.log(error.response);
@@ -159,18 +160,17 @@ export const actions = {
 	// 로그인
 	async [LOGIN_USER](context, user) {
 		try {
-			this.$toast.show('로그인 중');
 			const response = await loginUser(user);
 			if (response) {
 				this.$toast.success('로그인 성공');
 				localStorage.setItem('user', JSON.stringify(response.data));
 				context.commit(SET_USER, response.data);
 				context.commit(SET_TOKEN, response.data);
-				this.$router.push('/userinfo');
+				this.$router.push('/');
 			}
 		} catch (error) {
 			console.log('error ', error.response);
-			this.$toast.error('id나 pw를 다시 확인하세요');
+			this.$toast.error('ID나 PW를 다시 확인하세요');
 			context.commit(LOGIN_FAILURE);
 			this.$router.push('/userlogin');
 		}
@@ -179,6 +179,7 @@ export const actions = {
 	[LOGOUT_USER](context) {
 		localStorage.removeItem('user');
 		context.commit(LOGOUT);
+		this.$toast.show('즐거운 하루 보내세요');
 		this.$router.push('/');
 	},
 	// 비밀번호 수정
@@ -189,6 +190,7 @@ export const actions = {
 			this.$toast.success('비밀번호를 수정했습니다.');
 			this.$router.push('/');
 		} catch (error) {
+			this.$toast.error('비밀번호 수정이 실패했습니다');
 			console.log(error.response);
 		}
 	},
@@ -218,6 +220,7 @@ export const actions = {
 		try {
 			await deleteUser();
 			context.commit(LOGOUT);
+			this.$toast.show('회원 탈퇴가 완료되었습니다.');
 			this.$router.push('/');
 		} catch (error) {
 			console.log('error', error);
@@ -228,7 +231,7 @@ export const actions = {
 	async [SEND_EMAIL_RESET_PASSWORD](context, userEmail) {
 		try {
 			await sendEmailForResetPassword(userEmail);
-			alert('이메일을 확인해주세요');
+			this.$toast.show('이메일을 확인해주세요');
 			this.$router.push('/');
 		} catch (error) {
 			console.log(error.response);
@@ -239,9 +242,10 @@ export const actions = {
 		try {
 			const response = await resetPasswordFromEmail(form);
 			console.log(response, 'RESET_PASSWORD');
-			alert('비밀번호가 변경되었습니다.');
+			this.$toast.success('비밀번호가 수정되었습니다.');
 			this.$router.push('/');
 		} catch (error) {
+			this.$toast.error('비밀번호 수정이 실패했습니다.');
 			console.log(error.response);
 		}
 	},
@@ -251,29 +255,23 @@ export const actions = {
 			const user = JSON.parse(localStorage.getItem('user')) || '';
 			if (user) {
 				try {
-					console.log(user.access_token, 'here is index in store');
-					const response = await checkAccessToken(user.access_token);
-					console.log(response.status, 'check response');
+					await checkAccessToken(user.access_token);
 				} catch (error) {
-					console.log('error', error.response);
 					if (error.response.status === 401) {
 						// access token의 기간 만료로 refresh token api 실행
 						try {
 							const response = await refreshTokenWithoutAccessToken(
 								user.refresh_token,
 							);
-							console.log(response, 'refresh token 확인');
 
 							// At x, Rt o
 							user.access_token = response.data.access;
 							localStorage.setItem('user', JSON.stringify(user));
 							context.commit(REFRESH_TOKEN, user);
-							alert('Access Toekn 재발급');
 						} catch (error) {
 							// At x , Rt x
 							context.commit(LOGOUT);
 							localStorage.removeItem('user');
-							alert('Refresh Token 만료, 로그아웃');
 							// redirect해도 될듯
 							this.$router.push('/');
 						}
@@ -321,8 +319,9 @@ export const actions = {
 	async [ADD_LIKE_IMAGES](context, form) {
 		try {
 			await addLikeImage(form);
-			alert('저장되었습니다.');
+			this.$toast.show('저장되었습니다.');
 		} catch (error) {
+			this.$toast.error('서버에 에러가 발생했습니다');
 			console.log(error.response);
 		}
 	},
@@ -331,8 +330,9 @@ export const actions = {
 		try {
 			const response = await deleteLikeImage(id);
 			console.log(response, ' here is delete like images');
-			alert('취소되었습니다.');
+			this.$toast.show('취소되었습니다.');
 		} catch (error) {
+			this.$toast.error('서버에 에러가 발생했습니다');
 			console.log(error.response);
 		}
 	},
@@ -342,6 +342,7 @@ export const actions = {
 			const response = await getLikeImage(email);
 			return response.data;
 		} catch (error) {
+			this.$toast.error('서버에 에러가 발생했습니다');
 			console.log(error.response);
 		}
 	},
@@ -349,9 +350,10 @@ export const actions = {
 	async [CREATE_DIARY](context, form) {
 		try {
 			await addDiary(form);
-			alert('게시글 완성');
+			this.$toast.success('게시글 완성되었습니다');
 			this.$router.push('/userfeeling');
 		} catch (error) {
+			this.$toast.error('서버에 에러가 발생했습니다');
 			console.log(error.response);
 		}
 	},
@@ -361,6 +363,7 @@ export const actions = {
 			const response = await getDiary();
 			return response;
 		} catch (error) {
+			this.$toast.error('서버에 에러가 발생했습니다');
 			console.log(error.response);
 		}
 	},
@@ -370,6 +373,7 @@ export const actions = {
 			const response = await getSpecificDiary(id);
 			return response;
 		} catch (error) {
+			this.$toast.error('서버에 에러가 발생했습니다');
 			console.log(error.response);
 		}
 	},
@@ -378,6 +382,7 @@ export const actions = {
 		try {
 			await updateDiary(form);
 		} catch (error) {
+			this.$toast.error('서버에 에러가 발생했습니다');
 			console.log(error.response);
 		}
 	},
@@ -388,6 +393,7 @@ export const actions = {
 			alert('삭제하였습니다');
 			this.$router.push('/userfeeling');
 		} catch (error) {
+			this.$toast.error('서버에 에러가 발생했습니다');
 			console.log(error.response);
 		}
 	},

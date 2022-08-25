@@ -14,13 +14,6 @@
 							class="mb-5"
 							@mouseenter="showOverlayForCat(item.id)"
 						>
-							<!-- 많은 사진들 중에 어떻게 해당 이미지만 hover되게 하지?
-							- 모든 사진에 overlay: false를 추가한다
-							- showOverlay로 해당 이미지의 id를 파라미터로 보낸다
-							- showOverlay에서 파라미터로 해당 이미지 찾아 그 이미지 속성의 overlay: true로 바꾼다
-							- v-overlay에서 overylay: true인 것만 오버레이 시킨다
-							https://stackoverflow.com/questions/62360961/vue-overlay-for-specific-card
-							 -->
 							<v-fade-transition>
 								<v-overlay
 									v-if="hover"
@@ -109,7 +102,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import ObserverInfinite from '@/components/ObserverInfinite';
+import ObserverInfinite from '@/components/animal/ObserverInfinite';
 export default {
 	name: 'InfiniteScroll',
 	components: {

@@ -1,6 +1,5 @@
 <template>
 	<v-form @submit.prevent="resetPw">
-		<!-- InputId 컴포넌트 사용하고 싶지만 중복체크가 있어서 사용 안함 -->
 		<v-text-field
 			v-model="email"
 			label="이메일"

@@ -70,32 +70,6 @@
 			</v-row>
 		</v-container>
 	</v-content>
-
-	<!-- <div class="d-flex justify-center align-center" style="height: 100%">
-    <v-card max-width="400" width="100%" elevation="10">
-      <v-toolbar>{{ title }} </v-toolbar>
-
-      <v-tabs v-model="tabs">
-        <v-tab v-for="(item, index) in items" :key="index" style="flex: 1">{{
-          item
-        }}</v-tab>
-      </v-tabs>
-
-      <v-card-text>
-        <v-tabs-items v-model="tabs">
-          <v-tab-item>
-            <ModifyUserInfo
-              @UPDATE_USER_PASSWORD="UPDATE_USER_PASSWORD($event)"
-              @updateUserName="updateUserName($event)"
-            />
-          </v-tab-item>
-          <v-tab-item>
-            <RemoveUser @removeUser="removeUser($event)" />
-          </v-tab-item>
-        </v-tabs-items>
-      </v-card-text>
-    </v-card>
-  </div> -->
 </template>
 
 <script>

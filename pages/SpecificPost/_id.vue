@@ -24,7 +24,6 @@ export default {
 	},
 	methods: {
 		...mapActions(['REMOVE_DIARY']),
-		// url 이상하게 이동함, 일단 보류
 		moveToModifyPost(item) {
 			this.$router.replace(`modifypost/${item.id}`);
 		},

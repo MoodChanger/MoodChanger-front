@@ -46,7 +46,7 @@ export default {
 	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: ['@nuxtjs/axios', '@nuxtjs/toast'],
 	toast: {
-		position: 'top-right',
+		position: 'top-center',
 		duration: 2000,
 	},
 

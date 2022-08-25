@@ -102,7 +102,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import ObserverInfinite from '@/components/ObserverInfinite';
+import ObserverInfinite from '@/components/animal/ObserverInfinite';
 export default {
 	name: 'InfiniteScroll',
 	components: {

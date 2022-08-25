@@ -13,28 +13,6 @@
 			</v-tab>
 		</v-tabs>
 	</v-card>
-	<!-- <div>
-		<v-app-bar class="primary pl-5" dense>
-			<v-toolbar-title>
-				<NuxtLink class="white--text text-decoration-none" to="/"
-					>MoodChanger</NuxtLink
-				>
-			</v-toolbar-title>
-			<v-spacer></v-spacer>
-
-			<v-tabs v-model="value" color="primary" slider-color="white">
-				<v-tab v-for="(item, index) in items" :key="index">
-					<NuxtLink
-						class="black--text text-decoration-none"
-						plain
-						:to="item.path"
-						>{{ item.title }}</NuxtLink
-					>
-				</v-tab>
-			</v-tabs>
-			<MoodUser />
-		</v-app-bar>
-	</div> -->
 </template>
 
 <script>

@@ -79,11 +79,7 @@ export default {
 
 				this.VALIDATE_TRUE();
 			} else {
-				// :error-messages="errors"에 에러 담거나 Toast로 바꾸기
-				alert('중복 아이디 입니다.');
-
-				console.log('중복 아이디');
-
+				this.$toast.error('중복된 아이디 입니다.');
 				this.VALIDATE_FALSE();
 			}
 		},
