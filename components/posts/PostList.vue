@@ -3,21 +3,20 @@
 		<v-row>
 			<template v-for="(item, index) in listItems">
 				<v-col :key="index" class="ma-2">
-					<v-card>
-						<v-card-title primary-title @click="moveToSpecificPost(item)">
+					<v-card @click="moveToSpecificPost(item)">
+						<v-card-title primary-title>
 							{{ item.title }}
 						</v-card-title>
-
-						<v-card-text @click="moveToSpecificPost(item)">
+						<v-card-text>
 							{{ item.content }}
 						</v-card-text>
 						<v-card-actions class="d-flex flex-row-reverse">
-							<v-icon class="pr-1" @click="deleteDiary(item)"
-								>mdi-delete</v-icon
-							>
-							<v-icon class="pr-1" @click="moveToModifyPost(item)"
-								>mdi-pencil</v-icon
-							>
+							<v-btn plain icon @click.stop="deleteDiary(item)">
+								<v-icon>mdi-delete</v-icon>
+							</v-btn>
+							<v-btn icon plain @click.stop="moveToModifyPost(item)">
+								<v-icon>mdi-pencil</v-icon>
+							</v-btn>
 						</v-card-actions>
 					</v-card>
 				</v-col>
@@ -66,5 +65,3 @@ export default {
 	},
 };
 </script>
-
-<style></style>

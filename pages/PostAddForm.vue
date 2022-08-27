@@ -1,19 +1,26 @@
 <template>
-	<v-card>
-		<v-form @submit.prevent="submitDiaryForm">
-			<v-card-title primary-title>
-				<v-text-field v-model="title" name="name" label="title"></v-text-field>
-			</v-card-title>
-			<v-card-text>
-				<v-text-field
-					v-model="contents"
-					name="name"
-					label="content"
-				></v-text-field>
-			</v-card-text>
-			<v-btn class="float-right mb-2 mr-2" type="submit">등록하기</v-btn>
-		</v-form>
-	</v-card>
+	<v-main>
+		<v-card class="ma-10">
+			<v-form @submit.prevent="submitDiaryForm">
+				<v-card-title primary-title>
+					<v-textarea
+						v-model="title"
+						outlined
+						name="name"
+						label="Title"
+						rows="1"
+						row-height="15"
+					></v-textarea>
+				</v-card-title>
+				<v-card-text>
+					<v-textarea v-model="contents" outlined label="Contents"></v-textarea>
+				</v-card-text>
+				<v-fab-transition>
+					<v-btn class="float-right ma-2 primary" type="submit">Create</v-btn>
+				</v-fab-transition>
+			</v-form>
+		</v-card>
+	</v-main>
 </template>
 
 <script>
@@ -42,5 +49,3 @@ export default {
 	},
 };
 </script>
-
-<style></style>

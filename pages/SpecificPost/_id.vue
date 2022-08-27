@@ -1,12 +1,18 @@
 <template>
-	<v-card>
-		<v-card-title primary-title> 제목 : {{ item.title }} </v-card-title>
-		<v-card-text> 내용 : {{ item.content }} </v-card-text>
-		<v-card-actions class="d-flex flex-row-reverse">
-			<v-icon class="pr-1" @click="moveToModifyPost(item)">mdi-pencil</v-icon>
-			<v-icon class="pr-1" @click="deleteDiary(item)">mdi-delete</v-icon>
-		</v-card-actions>
-	</v-card>
+	<v-main>
+		<v-card class="ma-10">
+			<v-card-title primary-title> {{ item.title }} </v-card-title>
+			<v-card-text> {{ item.content }} </v-card-text>
+			<v-card-actions class="d-flex flex-row-reverse">
+				<v-btn plain icon @click.stop="deleteDiary(item)">
+					<v-icon>mdi-delete</v-icon>
+				</v-btn>
+				<v-btn plain icon @click.stop="moveToModifyPost(item)">
+					<v-icon>mdi-pencil</v-icon>
+				</v-btn>
+			</v-card-actions>
+		</v-card>
+	</v-main>
 </template>
 
 <script>
@@ -25,7 +31,7 @@ export default {
 	methods: {
 		...mapActions(['REMOVE_DIARY']),
 		moveToModifyPost(item) {
-			this.$router.replace(`modifypost/${item.id}`);
+			this.$router.push(`modifypost/${item.id}`);
 		},
 		async deleteDiary(item) {
 			try {
@@ -37,5 +43,3 @@ export default {
 	},
 };
 </script>
-
-<style></style>

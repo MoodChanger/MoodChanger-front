@@ -1,15 +1,26 @@
 <template>
-	<v-card>
-		<v-form @submit.prevent="submitModifyForm">
-			<v-card-title primary-title>
-				<v-text-field v-model="title" label="제목"></v-text-field>
-			</v-card-title>
-			<v-card-text>
-				<v-text-field v-model="content" label="내용"></v-text-field>
-			</v-card-text>
-			<v-btn class="float-right mb-2 mr-2" type="submit">수정완료</v-btn>
-		</v-form>
-	</v-card>
+	<v-main>
+		<v-card class="ma-10">
+			<v-form @submit.prevent="submitModifyForm">
+				<v-card-title primary-title>
+					<v-textarea
+						v-model="title"
+						outlined
+						name="name"
+						label="Title"
+						rows="1"
+						row-height="15"
+					></v-textarea>
+				</v-card-title>
+				<v-card-text>
+					<v-textarea v-model="content" outlined label="Contents"></v-textarea>
+				</v-card-text>
+				<v-fab-transition>
+					<v-btn class="float-right ma-2 primary" type="submit">Post</v-btn>
+				</v-fab-transition>
+			</v-form>
+		</v-card>
+	</v-main>
 </template>
 
 <script>
@@ -58,5 +69,3 @@ export default {
 	},
 };
 </script>
-
-<style></style>

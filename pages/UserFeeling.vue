@@ -1,10 +1,21 @@
 <template>
-	<div>
+	<v-main>
 		<PostList />
-		<v-icon class="float-right pr-2" x-large @click="moveToPostAddForm"
-			>mdi-plus-circle</v-icon
-		>
-	</div>
+		<v-fab-transition>
+			<v-btn
+				class="mb-10"
+				color="primary"
+				dark
+				absolute
+				bottom
+				right
+				fab
+				@click="moveToPostAddForm"
+			>
+				<v-icon>mdi-plus</v-icon>
+			</v-btn>
+		</v-fab-transition>
+	</v-main>
 </template>
 
 <script>
@@ -36,5 +47,3 @@ export default {
 	},
 };
 </script>
-
-<style></style>

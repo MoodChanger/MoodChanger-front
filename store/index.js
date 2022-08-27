@@ -350,7 +350,7 @@ export const actions = {
 	async [CREATE_DIARY](context, form) {
 		try {
 			await addDiary(form);
-			this.$toast.success('게시글 완성되었습니다');
+			this.$toast.success('게시글이 등록되었습니다');
 			this.$router.push('/userfeeling');
 		} catch (error) {
 			this.$toast.error('서버에 에러가 발생했습니다');
@@ -381,6 +381,7 @@ export const actions = {
 	async [UPDATE_DIARY](context, form) {
 		try {
 			await updateDiary(form);
+			this.$toast.success('게시글이 수정되었습니다');
 		} catch (error) {
 			this.$toast.error('서버에 에러가 발생했습니다');
 			console.log(error.response);
@@ -390,7 +391,7 @@ export const actions = {
 	async [REMOVE_DIARY](context, id) {
 		try {
 			await deleteDiary(id);
-			alert('삭제하였습니다');
+			this.$toast.success('게시글이 삭제되었습니다');
 			this.$router.push('/userfeeling');
 		} catch (error) {
 			this.$toast.error('서버에 에러가 발생했습니다');
