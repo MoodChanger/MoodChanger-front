@@ -21,14 +21,25 @@
 ### [회원가입/로그인]
 ![image](https://user-images.githubusercontent.com/47138043/187603132-7c47b0cb-0f01-4fe0-9842-cc25350ed408.png)
 
+![image](https://user-images.githubusercontent.com/47138043/187603687-65f6f005-f6ff-441d-a3a5-4478e4d4f26d.png)
+
 
 
 
 ### [비밀번호 수정/닉네임 수정]
+![image](https://user-images.githubusercontent.com/47138043/187603936-c74fd3ec-1981-4282-8ca6-7ee34cf3b06c.png)
 
-### [비밀번호 찾기]
 
 ### [동물 사진]
+![image](https://user-images.githubusercontent.com/47138043/187603809-cf638ed9-6b05-411f-8e2e-6e02ab608c45.png)
+
+![image](https://user-images.githubusercontent.com/47138043/187603780-a8662376-d958-4194-a2f3-f6757cd6d159.png)
+
 
 ### [일기장]
+
+
+![image](https://user-images.githubusercontent.com/47138043/187603830-bb2749e1-a7e1-464d-8580-1d6e4a8a9f7f.png)
+
+![image](https://user-images.githubusercontent.com/47138043/187603821-c2c20b56-5e15-4cf3-8d89-f63a249de812.png)
 
