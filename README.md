@@ -19,6 +19,9 @@
 
 ## 미리보기
 ### [회원가입/로그인]
+![image](https://user-images.githubusercontent.com/47138043/187603132-7c47b0cb-0f01-4fe0-9842-cc25350ed408.png)
+
+
 
 
 ### [비밀번호 수정/닉네임 수정]
