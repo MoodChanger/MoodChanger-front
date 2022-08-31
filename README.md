@@ -29,7 +29,7 @@
 
 ### [비밀번호 수정/닉네임 수정]
 - 서버와 통신을 하여 비밀번호와 닉네임을 수정합니다.
-- 
+
 ![image](https://user-images.githubusercontent.com/47138043/187603936-c74fd3ec-1981-4282-8ca6-7ee34cf3b06c.png)
 
 
