@@ -36,7 +36,7 @@
 ### [동물 사진]
 - Infinite Scroll로 동물 사진을 계속 볼 수 있습니다.
 - 좋아요 기능이 가능하여 좋아하는 사진을 따로 볼 수 있습니다.
-_
+
 ![image](https://user-images.githubusercontent.com/47138043/187603809-cf638ed9-6b05-411f-8e2e-6e02ab608c45.png)
 
 ![image](https://user-images.githubusercontent.com/47138043/187603780-a8662376-d958-4194-a2f3-f6757cd6d159.png)
@@ -48,4 +48,17 @@ _
 ![image](https://user-images.githubusercontent.com/47138043/187603830-bb2749e1-a7e1-464d-8580-1d6e4a8a9f7f.png)
 
 ![image](https://user-images.githubusercontent.com/47138043/187603821-c2c20b56-5e15-4cf3-8d89-f63a249de812.png)
+
+
+## 회고
+### [어려웠던 부분]
+로그인 유지, 인증 기능을 개발하는 도중 처음에는 localStorage에만 유저 정보를 설정해놓으면 되는 줄 알았습니다.
+하지만 그것은 클라이언트 부분에서만 생각한 것이었고 서버 부분은 생각하지 않았습니다.
+그래서 서버와 클라이언트 모두 로그인 인증, 유지를 하려면 middleware와 axios interceptor을 활용해야 한다는 걸 알고 개념들을 공부하고 구현하기까지 오래 걸렸습니다.
+다음에는 개발이 필요한 개념들을 공부하는 것과 어떤 방법으로 개발할지도 꼼꼼히 공부해야겠습니다.
+
+
+
+
+
 
